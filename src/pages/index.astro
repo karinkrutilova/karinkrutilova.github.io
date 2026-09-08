@@ -3,32 +3,60 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import settings from '../content/settings.json';
-const works = (await getCollection('works')).sort((a, b) =>
-  Number(b.data.featured) - Number(a.data.featured) ||
-  (a.data.order ?? 9999) - (b.data.order ?? 9999) ||
-  b.data.year - a.data.year || a.data.title.localeCompare(b.data.title));
+import { sortWorks, imagePath } from '../lib/works';
+import { pickDetailCrops, cropStyle } from '../lib/detail-crops.mjs';
+const works = sortWorks(await getCollection('works'));
 const base = import.meta.env.BASE_URL;
+const featured = works[0];
+const [detail] = featured && settings.showDetails ? await pickDetailCrops(imagePath(featured.data.image), { count: 1 }) : [];
+const caption = (work: typeof featured) => [settings.showTitle && work.data.title, settings.showYear && work.data.year].filter(Boolean).join(', ');
 ---
 <Base title={settings.heading}>
-  <section class="intro">
-    <h1>{settings.heading}</h1>
-    <p>{settings.intro}</p>
+  <section class="hero">
+    <h1>{settings.name}</h1>
+    <div class="hero-body">
+      <div class="hero-text">
+        <div>
+          <p>{settings.intro}</p>
+          <a class="hero-link" href="#works">See the works</a>
+        </div>
+        {detail && (
+          <figure class="hero-detail">
+            <div class="crop">
+              <Image src={featured.data.image} alt={`Close-up. ${featured.data.imageAlt}`} widths={[1200]} sizes="300px" format="webp" loading="eager" style={cropStyle(detail)} />
+            </div>
+            <figcaption>Detail</figcaption>
+          </figure>
+        )}
+      </div>
+      {featured && (
+        <figure class="hero-work">
+          <a href={`${base}works/${featured.id}/`}>
+            <Image src={featured.data.image} alt={featured.data.imageAlt} widths={[700, 1400]} sizes="(max-width: 950px) 90vw, 700px" format="webp" loading="eager" />
+          </a>
+          {caption(featured) && <figcaption>{caption(featured)}</figcaption>}
+        </figure>
+      )}
+    </div>
   </section>
-  <ul class="gallery" aria-label="Artworks">
-    {works.map((work, index) => (
-      <li>
-        <a class="work-link" href={`${base}works/${work.id}/`}>
-          <div class="art-frame">
+  <section class="works" id="works">
+    <h2 class="section-heading">{settings.heading}</h2>
+    <ul class="gallery" aria-label="Artworks">
+      {works.map((work) => (
+        <li>
+          <a class="work-link" href={`${base}works/${work.id}/`}>
             <Image src={work.data.image} alt={work.data.imageAlt}
-              widths={[400, 700, 1000]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 30vw"
-              format="webp" loading={index === 0 ? 'eager' : 'lazy'} />
-          </div>
-          {(settings.showTitle || settings.showYear) && <div class="work-caption">{settings.showTitle && <h2>{work.data.title}</h2>}{settings.showYear && <span>{work.data.year}</span>}</div>}
-          {settings.showMedium && <p class="work-medium">{work.data.credit || work.data.medium}</p>}
-        </a>
-      </li>
-    ))}
-  </ul>
-  {works.length === 0 && <p class="collection-note">New works are on their way.</p>}
-  {works.some(work => work.data.source) && <p class="collection-note">Sample collection of public-domain artworks.</p>}
+              widths={[400, 800, 1200]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 400px"
+              format="webp" loading="lazy" />
+            {(settings.showTitle || settings.showYear) && (
+              <div class="work-caption">{settings.showTitle && <h2>{work.data.title}</h2>}{settings.showYear && <span>{work.data.year}</span>}</div>
+            )}
+            {settings.showMedium && (work.data.credit || work.data.medium) && <p class="work-medium">{work.data.credit || work.data.medium}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+    {works.length === 0 && <p class="collection-note">New works are on their way.</p>}
+    {works.some(work => work.data.source) && <p class="collection-note">Sample collection of public-domain artworks.</p>}
+  </section>
 </Base>
