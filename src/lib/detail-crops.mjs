@@ -36,3 +36,6 @@ export async function pickDetailCrops(file, { count = 3, size = 0.3 } = {}) {
   }
   return picked.map(p => ({ x: p.x / w, y: p.y / w, size: side / w }));
 }
+
+/** Inline style that shows one crop inside a square `.crop` box. */
+export const cropStyle = c => `width:${(100 / c.size).toFixed(2)}%;left:${(-100 * c.x / c.size).toFixed(2)}%;top:${(-100 * c.y / c.size).toFixed(2)}%`;

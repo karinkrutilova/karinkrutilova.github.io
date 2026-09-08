@@ -3,22 +3,26 @@ import { Image } from 'astro:assets';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import settings from '../../content/settings.json';
-import { pickDetailCrops } from '../../lib/detail-crops.mjs';
+import { sortWorks, imagePath } from '../../lib/works';
+import { pickDetailCrops, cropStyle } from '../../lib/detail-crops.mjs';
 export async function getStaticPaths() {
-  return (await getCollection('works')).map(work => ({ params: { slug: work.id }, props: { work } }));
+  const works = sortWorks(await getCollection('works'));
+  return works.map((work, i) => ({ params: { slug: work.id }, props: { work, prev: works[i - 1], next: works[i + 1] } }));
 }
-interface Props { work: CollectionEntry<'works'> }
-const { work } = Astro.props;
+type Work = CollectionEntry<'works'>;
+interface Props { work: Work; prev?: Work; next?: Work }
+const { work, prev, next } = Astro.props;
 const { Content } = await render(work);
 const { title, year, medium, dimensions, image, imageAlt, tags, credit, source } = work.data;
+const base = import.meta.env.BASE_URL;
 // Close-ups are chosen at build time from the busiest regions of the image; switch off in Site text → settings.
-const details = settings.showDetails ? await pickDetailCrops((image as { fsPath?: string }).fsPath ?? image.src) : [];
+const details = settings.showDetails ? await pickDetailCrops(imagePath(image)) : [];
 ---
 <Base title={title} description={`${title}, ${year}${medium ? ` · ${medium}` : ''}`}>
-  <a class="back-link" href={import.meta.env.BASE_URL}><span aria-hidden="true">←</span> All works</a>
+  <a class="back-link" href={base}>All works</a>
   <article class="work-detail">
     <figure class="detail-image">
-      <Image src={image} alt={imageAlt} widths={[600, 1000, 1600]} sizes="(max-width: 620px) 90vw, 60vw" format="webp" loading="eager" />
+      <Image src={image} alt={imageAlt} widths={[800, 1600]} sizes="(max-width: 950px) 90vw, 800px" format="webp" loading="eager" />
     </figure>
     <div class="work-info">
       {settings.showTitle
@@ -32,20 +36,35 @@ const details = settings.showDetails ? await pickDetailCrops((image as { fsPath?
       )}
       {settings.showDescription && <div class="prose"><Content /></div>}
       {settings.showTags && tags.length > 0 && <ul class="tags" aria-label="Tags">{tags.map(tag => <li>{tag}</li>)}</ul>}
-      {settings.showMedium && credit && <p class="credit">{credit}{source && <> · <a href={source}>View museum record ↗</a></>}</p>}
+      {settings.showMedium && credit && <p class="credit">{credit}{source && <> · <a href={source}>View museum record</a></>}</p>}
     </div>
   </article>
   {details.length > 0 && (
     <section class="details" aria-label="Close-ups">
-      <h2>Details</h2>
+      <h2 class="section-heading">Details</h2>
       <ul class="detail-crops">
         {details.map((crop, index) => (
           <li class="crop">
-            <Image src={image} alt={`${title}, close-up ${index + 1}`} widths={[1600]} sizes="(max-width: 620px) 90vw, 30vw" format="webp" loading="lazy"
-              style={`width:${(100 / crop.size).toFixed(2)}%;left:${(-100 * crop.x / crop.size).toFixed(2)}%;top:${(-100 * crop.y / crop.size).toFixed(2)}%`} />
+            <Image src={image} alt={`${title}, close-up ${index + 1}`} widths={[1600]} sizes="(max-width: 950px) 90vw, 400px" format="webp" loading="lazy" style={cropStyle(crop)} />
           </li>
         ))}
       </ul>
     </section>
+  )}
+  {(prev || next) && (
+    <nav class="siblings" aria-label="Other works">
+      {prev && (
+        <a href={`${base}works/${prev.id}/`}>
+          <Image src={prev.data.image} alt={prev.data.imageAlt} widths={[160]} sizes="80px" format="webp" loading="lazy" />
+          <span>Previous{settings.showTitle && <strong>{prev.data.title}</strong>}</span>
+        </a>
+      )}
+      {next && (
+        <a class="next" href={`${base}works/${next.id}/`}>
+          <span>Next{settings.showTitle && <strong>{next.data.title}</strong>}</span>
+          <Image src={next.data.image} alt={next.data.imageAlt} widths={[160]} sizes="80px" format="webp" loading="lazy" />
+        </a>
+      )}
+    </nav>
   )}
 </Base>

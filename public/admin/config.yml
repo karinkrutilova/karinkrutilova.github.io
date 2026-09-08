@@ -47,6 +47,8 @@ collections:
           - { name: name, label: Artist or site name, widget: string }
           - { name: heading, label: Gallery heading, widget: string }
           - { name: intro, label: Short introduction, widget: text }
+          - { name: instagram, label: Instagram link, widget: string, required: false, hint: 'Full address, for the footer. Leave empty to hide.' }
+          - { name: email, label: Contact email, widget: string, required: false, hint: 'Shown as an Email link in the footer. Leave empty to hide.' }
           - { name: showDetails, label: Show detail close-ups, widget: boolean, default: true, hint: 'Adds a row of automatically chosen close-ups under each work.' }
           - { name: showYear, label: Show years, widget: boolean, default: true, hint: 'Switch everything below off for an art-only gallery.' }
           - { name: showTitle, label: Show titles, widget: boolean, default: false, hint: 'Titles are still needed for page addresses.' }

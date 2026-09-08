@@ -11,15 +11,19 @@ const isAbout = Astro.url.pathname === `${base}about/`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
     <title>{title} · {settings.name}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&display=swap" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header wrap">
-      <a class="wordmark" href={base}>{settings.name}<span class="wordmark-dot" aria-hidden="true">.</span></a>
+      <a class="wordmark" href={base}>{settings.name}</a>
       <nav aria-label="Main navigation">
         <a href={base} aria-current={!isAbout ? 'page' : undefined}>Works</a>
         <a href={`${base}about/`} aria-current={isAbout ? 'page' : undefined}>About</a>
@@ -27,8 +31,12 @@ const isAbout = Astro.url.pathname === `${base}about/`;
     </header>
     <main id="main" class="wrap"><slot /></main>
     <footer class="site-footer wrap">
-      <span>{settings.name} · Portfolio</span>
-      <a href={`${base}admin/`}>Edit portfolio <span aria-hidden="true">↗</span></a>
+      <span>{settings.name}</span>
+      <div>
+        {settings.instagram && <a href={settings.instagram}>Instagram</a>}
+        {settings.email && <a href={`mailto:${settings.email}`}>Email</a>}
+        <a class="admin" href={`${base}admin/`}>Edit portfolio</a>
+      </div>
     </footer>
   </body>
 </html>
