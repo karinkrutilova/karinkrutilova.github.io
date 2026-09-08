@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.208.2/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: magicsk/portfolio
+  branch: main
+site_url: https://magicsk.github.io/portfolio/
+display_url: https://magicsk.github.io/portfolio/
+logo_url: https://magicsk.github.io/portfolio/favicon.svg
+media_folder: /src/assets/works
+public_folder: /src/assets/works
+collections:
+  - name: works
+    label: Works
+    label_singular: Work
+    folder: src/content/works
+    create: true
+    slug: '{{slug}}'
+    preview_path: 'works/{{slug}}/'
+    summary: '{{title}} · {{year}}'
+    sortable_fields: [order, title, year]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: medium, label: Medium, widget: string, required: false }
+      - { name: dimensions, label: Dimensions, widget: string, required: false, hint: 'For example: 40 × 60 cm' }
+      - name: image
+        label: Image
+        widget: image
+        hint: 'Export around 2000 px on the long edge, ideally under 500 KB. Use JPG, PNG, or WebP. Upload only images you want to make public.'
+        media_library:
+          config:
+            max_file_size: 2000000
+      - { name: imageAlt, label: Image description, widget: string, hint: 'Briefly describe what is visible for people using screen readers.' }
+      - { name: body, label: Description, widget: markdown, required: false }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: featured, label: Featured, widget: boolean, default: false, hint: 'Featured works appear first.' }
+      - { name: order, label: Sort order, widget: number, value_type: int, required: false, hint: 'Lower numbers appear first within each group.' }
+      - { name: credit, label: Artist credit, widget: string, required: false, hint: 'Used for the museum samples. Clear this for your own artwork if you prefer.' }
+      - { name: source, label: Source link, widget: string, required: false, pattern: ['^https://', 'Use a full HTTPS URL.'], hint: 'Museum record for sample works. Clear this for your own artwork.' }
+  - name: pages
+    label: Site text
+    files:
+      - name: settings
+        label: Name and introduction
+        file: src/content/settings.json
+        fields:
+          - { name: name, label: Artist or site name, widget: string }
+          - { name: heading, label: Gallery heading, widget: string }
+          - { name: intro, label: Short introduction, widget: text }
+      - name: about
+        label: About and contact
+        file: src/content/pages/about.md
+        fields:
+          - { name: title, label: Page title, widget: string }
+          - { name: body, label: About and contact details, widget: markdown }

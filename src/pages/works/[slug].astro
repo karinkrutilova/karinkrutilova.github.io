@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+export async function getStaticPaths() {
+  return (await getCollection('works')).map(work => ({ params: { slug: work.id }, props: { work } }));
+}
+interface Props { work: CollectionEntry<'works'> }
+const { work } = Astro.props;
+const { Content } = await render(work);
+const { title, year, medium, dimensions, image, imageAlt, tags, credit, source } = work.data;
+---
+<Base title={title} description={`${title}, ${year}${medium ? ` · ${medium}` : ''}`}>
+  <a class="back-link" href={import.meta.env.BASE_URL}><span aria-hidden="true">←</span> All works</a>
+  <article class="work-detail">
+    <figure class="detail-image">
+      <Image src={image} alt={imageAlt} widths={[600, 1000, 1600]} sizes="(max-width: 620px) 90vw, 60vw" format="webp" loading="eager" />
+    </figure>
+    <div class="work-info">
+      <h1>{title}</h1>
+      <p class="work-year">{year}</p>
+      <dl>
+        {medium && <><dt>Medium</dt><dd>{medium}</dd></>}
+        {dimensions && <><dt>Dimensions</dt><dd>{dimensions}</dd></>}
+      </dl>
+      <div class="prose"><Content /></div>
+      {tags.length > 0 && <ul class="tags" aria-label="Tags">{tags.map(tag => <li>{tag}</li>)}</ul>}
+      {credit && <p class="credit">{credit}{source && <> · <a href={source}>View museum record ↗</a></>}</p>}
+    </div>
+  </article>
+</Base>

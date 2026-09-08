@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import settings from '../content/settings.json';
+const works = (await getCollection('works')).sort((a, b) =>
+  Number(b.data.featured) - Number(a.data.featured) ||
+  (a.data.order ?? 9999) - (b.data.order ?? 9999) ||
+  b.data.year - a.data.year || a.data.title.localeCompare(b.data.title));
+const base = import.meta.env.BASE_URL;
+---
+<Base title={settings.heading}>
+  <section class="intro">
+    <h1>{settings.heading}</h1>
+    <p>{settings.intro}</p>
+  </section>
+  <ul class="gallery" aria-label="Artworks">
+    {works.map((work, index) => (
+      <li>
+        <a class="work-link" href={`${base}works/${work.id}/`}>
+          <div class="art-frame">
+            <Image src={work.data.image} alt={work.data.imageAlt}
+              widths={[400, 700, 1000]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 30vw"
+              format="webp" loading={index === 0 ? 'eager' : 'lazy'} />
+          </div>
+          <div class="work-caption"><h2>{work.data.title}</h2><span>{work.data.year}</span></div>
+          <p class="work-medium">{work.data.credit || work.data.medium}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {works.length === 0 && <p class="collection-note">New works are on their way.</p>}
+  {works.some(work => work.data.source) && <p class="collection-note">Sample collection · Public-domain artworks, credited on each work’s page.</p>}
+</Base>

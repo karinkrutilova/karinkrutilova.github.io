@@ -1,0 +1,13 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const about = await getEntry('pages', 'about');
+if (!about) throw new Error('The About page is missing. Restore src/content/pages/about.md.');
+const { Content } = await render(about);
+---
+<Base title={about.data.title}>
+  <article class="about">
+    <h1>{about.data.title}</h1>
+    <div class="prose"><Content /></div>
+  </article>
+</Base>

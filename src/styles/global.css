@@ -1,0 +1,66 @@
+:root { font-family: Arial, Helvetica, sans-serif; color: #20211f; background: #fff; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; text-underline-offset: .25em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid #9e351e; outline-offset: 6px; }
+.wrap { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
+.site-header { display: flex; justify-content: space-between; align-items: center; padding-block: 38px; border-bottom: 1px solid #dededb; gap: 24px; }
+.wordmark { font-size: 1.5rem; font-weight: 700; letter-spacing: -.06em; text-decoration: none; }
+.wordmark-dot { color: #9e351e; }
+nav { display: flex; gap: 32px; font-size: .9375rem; }
+nav a { text-decoration: none; padding-block: 10px; }
+nav a[aria-current] { text-decoration: underline; }
+.intro { display: flex; align-items: end; justify-content: space-between; gap: 32px; padding-block: 60px 48px; }
+h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.08; letter-spacing: -.045em; margin: 0; }
+.intro p { color: #63645f; line-height: 1.6; max-width: 320px; margin: 0 0 3px; }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 32px; list-style: none; padding: 0; margin: 0; }
+.work-link { display: block; text-decoration: none; }
+.art-frame { height: clamp(280px, 32vw, 430px); background: #f5f5f3; display: flex; align-items: center; justify-content: center; padding: 28px; }
+.art-frame img { max-width: 100%; max-height: 100%; width: auto; height: auto; box-shadow: 0 4px 16px #0000000c; }
+.work-link:hover .art-frame { background: #ededeb; }
+.work-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.work-caption h2 { font-size: 1rem; font-weight: 500; line-height: 1.4; margin: 0; }
+.work-caption span, .work-medium, .credit { font-size: .875rem; color: #63645f; line-height: 1.6; }
+.work-medium { margin: 6px 0 0; }
+.collection-note { color: #63645f; font-size: .875rem; line-height: 1.6; margin-top: 48px; }
+.site-footer { display: flex; justify-content: space-between; gap: 24px; padding-block: 28px; margin-top: 80px; border-top: 1px solid #dededb; color: #63645f; font-size: .875rem; }
+.site-footer a { text-decoration: none; }
+.back-link { display: inline-block; font-size: .9375rem; margin-block: 36px; text-decoration: none; }
+.work-detail { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr); gap: 64px; align-items: start; }
+.detail-image { margin: 0; background: #f5f5f3; padding: clamp(24px, 4vw, 56px); }
+.detail-image img { width: 100%; height: auto; display: block; }
+.work-info { padding-top: 8px; }
+.work-info h1 { font-size: clamp(2rem, 3vw, 3.2rem); }
+.work-year { color: #63645f; font-size: 1.125rem; margin: 20px 0 32px; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 12px 24px; font-size: .9375rem; line-height: 1.5; margin: 0 0 32px; }
+dt { color: #63645f; } dd { margin: 0; }
+.prose { font-size: 1.0625rem; line-height: 1.8; overflow-wrap: anywhere; }
+.prose > :first-child { margin-top: 0; }
+.prose a { color: #87311e; }
+.prose img { max-width: 100%; height: auto; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 0; list-style: none; color: #63645f; font-size: .875rem; margin-top: 28px; }
+.credit { border-top: 1px solid #dededb; padding-top: 20px; margin-top: 32px; }
+.about { max-width: 720px; padding-top: 68px; min-height: 50vh; }
+.about h1 { margin-bottom: 36px; }
+.skip-link { position: absolute; top: -100px; left: 24px; background: #fff; padding: 12px; z-index: 10; }
+.skip-link:focus { top: 12px; }
+@media (max-width: 950px) {
+  .wrap { width: calc(100% - 48px); }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
+  .art-frame { height: 370px; }
+  .work-detail { gap: 32px; grid-template-columns: minmax(0, 1.3fr) minmax(240px, 1fr); }
+}
+@media (max-width: 620px) {
+  .wrap { width: calc(100% - 40px); }
+  .site-header { padding-block: 24px; }
+  nav { gap: 24px; }
+  .intro { display: block; padding-block: 40px 32px; }
+  .intro p { margin-top: 20px; }
+  .gallery, .work-detail { grid-template-columns: 1fr; }
+  .art-frame { height: auto; min-height: 290px; padding: 28px; }
+  .art-frame img { max-height: 460px; }
+  .work-detail { gap: 32px; }
+  .site-footer { margin-top: 56px; font-size: .875rem; flex-wrap: wrap; }
+  .about { padding-top: 40px; }
+}
