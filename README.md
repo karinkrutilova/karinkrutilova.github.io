@@ -17,7 +17,7 @@ Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 K
 
 Featured works appear first. Within each group, lower sort-order numbers appear first; unnumbered works follow, newest year first. Each work has its own page. Tags are displayed on that page; there are no filters yet.
 
-The three museum artworks are placeholders, clearly credited. Replace or delete them as you try the editor. Clear **Artist credit** and **Source link** when replacing a sample with your own work. Change the About text to your own biography. The sample-collection note disappears when no works have source links.
+The About text has bracketed placeholders to fill in. The gallery shows a note about sample works only while any work has a source link.
 
 ## Local development
 
@@ -45,16 +45,8 @@ npm test
 - `src/content.config.ts`: Astro collection schemas.
 - `public/admin/config.yml`: editor fields and GitHub backend.
 
-Both Sveltia's `media_folder` and `public_folder` are `/src/assets/works`. It saves image values such as `/src/assets/works/example.jpg`. Astro 7 resolves these project-root paths through the collection's `image()` helper; the current samples use exactly that format and the production build generates responsive WebP files. `/src/assets/...` is a source reference, not a URL served by the published site. Do not change only one side of this configuration.
+Both Sveltia's `media_folder` and `public_folder` are `/src/assets/works`. It saves image values such as `/src/assets/works/example.jpg`. Astro 7 resolves these project-root paths through the collection's `image()` helper; the works use exactly that format and the production build generates responsive WebP files. `/src/assets/...` is a source reference, not a URL served by the published site. Do not change only one side of this configuration.
 
 Sveltia is pinned to `0.208.2` in `public/admin/index.html`. Astro and its image tooling are the only application dependency. The CMS does not require a Svelte integration, OAuth proxy, or database. GitHub Pages must use **GitHub Actions** as its publishing source. The Pages workflow uses the official Astro action.
 
 To change hosting later, update `site`/`base` in `astro.config.mjs`, editor URLs, and the base-path assertion in `scripts/check-build.mjs`. A custom domain has its own registration cost; the current `github.io` address is free.
-
-## Sample artwork credits
-
-Images from The Metropolitan Museum of Art's [Open Access program](https://www.metmuseum.org/hubs/open-access), released under CC0. Files are resized JPEG reproductions; these artworks are not by magic_sk.
-
-- Vincent van Gogh, [Wheat Field with Cypresses](https://www.metmuseum.org/art/collection/search/436535), 1889. Oil on canvas. Purchase, The Annenberg Foundation Gift, 1993.
-- Vincent van Gogh, [Irises](https://www.metmuseum.org/art/collection/search/436528), 1890. Oil on canvas. Gift of Adele R. Levy, 1958.
-- Auguste Renoir, [Eugène Murer](https://www.metmuseum.org/art/collection/search/438011), 1877. Oil on canvas. The Walter H. and Leonore Annenberg Collection, Bequest of Walter H. Annenberg, 2002.
