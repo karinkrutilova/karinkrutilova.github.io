@@ -47,6 +47,12 @@ collections:
           - { name: name, label: Artist or site name, widget: string }
           - { name: heading, label: Gallery heading, widget: string }
           - { name: intro, label: Short introduction, widget: text }
+          - { name: showDetails, label: Show detail close-ups, widget: boolean, default: true, hint: 'Adds a row of automatically chosen close-ups under each work.' }
+          - { name: showYear, label: Show years, widget: boolean, default: true, hint: 'Switch everything below off for an art-only gallery.' }
+          - { name: showTitle, label: Show titles, widget: boolean, default: false, hint: 'Titles are still needed for page addresses.' }
+          - { name: showMedium, label: Show medium and size, widget: boolean, default: false }
+          - { name: showDescription, label: Show descriptions, widget: boolean, default: false }
+          - { name: showTags, label: Show tags, widget: boolean, default: false }
       - name: about
         label: About and contact
         file: src/content/pages/about.md

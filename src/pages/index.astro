@@ -23,12 +23,12 @@ const base = import.meta.env.BASE_URL;
               widths={[400, 700, 1000]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 30vw"
               format="webp" loading={index === 0 ? 'eager' : 'lazy'} />
           </div>
-          <div class="work-caption"><h2>{work.data.title}</h2><span>{work.data.year}</span></div>
-          <p class="work-medium">{work.data.credit || work.data.medium}</p>
+          {(settings.showTitle || settings.showYear) && <div class="work-caption">{settings.showTitle && <h2>{work.data.title}</h2>}{settings.showYear && <span>{work.data.year}</span>}</div>}
+          {settings.showMedium && <p class="work-medium">{work.data.credit || work.data.medium}</p>}
         </a>
       </li>
     ))}
   </ul>
   {works.length === 0 && <p class="collection-note">New works are on their way.</p>}
-  {works.some(work => work.data.source) && <p class="collection-note">Sample collection · Public-domain artworks, credited on each work’s page.</p>}
+  {works.some(work => work.data.source) && <p class="collection-note">Sample collection of public-domain artworks.</p>}
 </Base>

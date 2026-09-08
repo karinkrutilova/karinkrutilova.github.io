@@ -1,5 +1,11 @@
 {
   "name": "magic_sk",
   "heading": "Selected works",
-  "intro": "A collection of paintings, studies, and things worth looking at slowly."
+  "intro": "A collection of paintings, studies, and things worth looking at slowly.",
+  "showDetails": true,
+  "showYear": true,
+  "showTitle": false,
+  "showMedium": false,
+  "showDescription": false,
+  "showTags": false
 }
