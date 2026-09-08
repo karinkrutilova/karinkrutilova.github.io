@@ -5,7 +5,7 @@
   "instagram": "",
   "email": "",
   "showDetails": true,
-  "showYear": true,
+  "showYear": false,
   "showTitle": false,
   "showMedium": false,
   "showDescription": false,
