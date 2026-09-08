@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.208.2/schema/sveltia-cms.json
 backend:
   name: github
-  repo: magicsk/portfolio
+  repo: karinkrutilova/portfolio
   branch: main
-site_url: https://magicsk.github.io/portfolio/
-display_url: https://magicsk.github.io/portfolio/
-logo_url: https://magicsk.github.io/portfolio/favicon.svg
+site_url: https://karinkrutilova.github.io/portfolio/
+display_url: https://karinkrutilova.github.io/portfolio/
+logo_url: https://karinkrutilova.github.io/portfolio/favicon.svg
 media_folder: /src/assets/works
 public_folder: /src/assets/works
 collections:

@@ -2,13 +2,13 @@
 
 A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content and images in Git, no database or application backend.
 
-- Site: https://magicsk.github.io/portfolio/
-- Editor: https://magicsk.github.io/portfolio/admin/
-- Deployment status: https://github.com/magicsk/portfolio/actions
+- Site: https://karinkrutilova.github.io/portfolio/
+- Editor: https://karinkrutilova.github.io/portfolio/admin/
+- Deployment status: https://github.com/karinkrutilova/portfolio/actions
 
 ## Edit the portfolio
 
-1. Create a [fine-grained GitHub personal access token](https://github.com/settings/personal-access-tokens/new). Select resource owner **magicsk**, repository access **Only select repositories → portfolio**, and repository permission **Contents: Read and write**. Metadata read access is automatic. Choose an expiration date; renew the token when it expires.
+1. Create a [fine-grained GitHub personal access token](https://github.com/settings/personal-access-tokens/new). Select resource owner **karinkrutilova**, repository access **Only select repositories → portfolio**, and repository permission **Contents: Read and write**. Metadata read access is automatic. Choose an expiration date; renew the token when it expires.
 2. Open the editor and choose **Sign In with Token**. Paste the token there. Never put it in this repository or send it in chat. Sveltia keeps the token in that browser's local storage; sign out when using a shared computer.
 3. Open **Works** to add or edit artwork. Upload an image, enter the title, year and image description, then save/publish. Saves commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
 4. Open **Site text** to change the artist name, gallery introduction, or About/contact text. Add an email link in the About text when ready.
@@ -53,7 +53,7 @@ To change hosting later, update `site`/`base` in `astro.config.mjs`, editor URLs
 
 ## Sample artwork credits
 
-Images from The Metropolitan Museum of Art's [Open Access program](https://www.metmuseum.org/hubs/open-access), released under CC0. Files are resized JPEG reproductions; these artworks are not by magic_sk.
+Images from The Metropolitan Museum of Art's [Open Access program](https://www.metmuseum.org/hubs/open-access), released under CC0. Files are resized JPEG reproductions; these artworks are not by karinkrutilova.
 
 - Vincent van Gogh, [Wheat Field with Cypresses](https://www.metmuseum.org/art/collection/search/436535), 1889. Oil on canvas. Purchase, The Annenberg Foundation Gift, 1993.
 - Vincent van Gogh, [Irises](https://www.metmuseum.org/art/collection/search/436528), 1890. Oil on canvas. Gift of Adele R. Levy, 1958.
