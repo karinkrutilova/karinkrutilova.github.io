@@ -35,8 +35,8 @@ collections:
       - { name: tags, label: Tags, widget: list, required: false }
       - { name: featured, label: Featured, widget: boolean, default: false, hint: 'Featured works appear first.' }
       - { name: order, label: Sort order, widget: number, value_type: int, required: false, hint: 'Lower numbers appear first within each group.' }
-      - { name: credit, label: Artist credit, widget: string, required: false, hint: 'Used for the museum samples. Clear this for your own artwork if you prefer.' }
-      - { name: source, label: Source link, widget: string, required: false, pattern: ['^https://', 'Use a full HTTPS URL.'], hint: 'Museum record for sample works. Clear this for your own artwork.' }
+      - { name: credit, label: Artist credit, widget: string, required: false, hint: 'Only for works by someone else. Leave empty for your own.' }
+      - { name: source, label: Source link, widget: string, required: false, pattern: ['^https://', 'Use a full HTTPS URL.'], hint: 'Where a credited work can be seen. Leave empty for your own.' }
   - name: pages
     label: Site text
     files:

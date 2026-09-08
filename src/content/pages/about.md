@@ -2,6 +2,10 @@
 title: About
 ---
 
-This portfolio is taking shape. An artist biography and contact details will follow.
+Karin Krutilová makes detailed digital line drawings, mostly white on black, sometimes the other way round, and now and then in colour. Each picture starts from a single figure and lets the background grow out of it.
 
-For now, the gallery contains three public-domain works from [The Metropolitan Museum of Art](https://www.metmuseum.org/hubs/open-access). They are a sample collection, not work by karinkrutilova.
+Based in [city]. Studied at [school], [years]. Work has been shown at [exhibition, year] and printed in [publication].
+
+Prints are available. Commissions are open for [what kind of work].
+
+Write to [email]. Follow on [Instagram](https://instagram.com/).
