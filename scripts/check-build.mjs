@@ -47,6 +47,7 @@ await access('dist/admin/order/index.html');
 await access('dist/admin/order.js');
 await access('dist/admin/order-utils.js');
 await access('dist/gallery.js');
+await access('dist/gallery-smoke.webp');
 const bulkUploader = await readFile('dist/admin/bulk-upload/upload.js', 'utf8');
 assert.match(bulkUploader, /const repo = 'karinkrutilova\.github\.io'/);
 assert.match(bulkUploader, /\/git\/blobs/);
@@ -101,6 +102,6 @@ assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320
 assert.match(globalStyles, /\.hero-bio p\s*\{[^}]*max-width:\s*none/s);
 assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
 assert.match(globalStyles, /\.gallery\s*\{[^}]*padding:\s*28px 0 0/s);
-assert.match(globalStyles, /\.gallery::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background:\s*#3b3b3b/s);
+assert.match(globalStyles, /\.gallery::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background-color:\s*#3b3b3b[^}]*background-image:\s*url\('\/gallery-smoke\.webp'\)/s);
 assert.doesNotMatch(globalStyles, /radial-gradient|filter:\s*blur/);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
