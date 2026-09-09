@@ -12,6 +12,7 @@ A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content
 2. Open the editor and choose **Sign In with Token**. Paste the token there. Never put it in this repository or send it in chat. Sveltia keeps the token in that browser's local storage; sign out when using a shared computer.
 3. Choose **Bulk upload images** in the bottom-right corner of the editor, select as many images as you need, then choose **Upload selected images**. This reliable uploader sends file data independently and publishes the successful files together, avoiding the CMS's all-or-nothing batch limit. No title, year, description or other fields are required. The filename supplies the initial title and image description, so use a short descriptive name such as `blue-portrait.jpg`.
 4. Open **Artwork details** to edit the automatically created record for any image. Here you can change its title, description, image description, year, ordering, and other optional details.
+5. Choose **Arrange gallery** in the bottom-right corner to see the current site sequence. Drag images or use the arrow buttons, then choose **Save arrangement**. The first image in this order is also the large image at the top of the homepage.
 5. Uploads and edits commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
 6. Open **Site text** to change the artist name, gallery introduction, or About/contact text. Add an email link in the About text when ready.
 
@@ -36,7 +37,7 @@ npm run build
 npm test
 ```
 
-`npm test` checks the built pages, local links, GitHub Pages base paths, image descriptions, responsive WebP files, and editor entry. GitHub Actions runs the same check before deployment. The first publisher token sign-in and an editor save should also be tried in your own browser; a successful build alone does not validate that login.
+`npm test` checks the built pages, local links, GitHub Pages base paths, image descriptions, responsive WebP files, uploader behavior, gallery ordering, and editor entry. GitHub Actions runs the same check before deployment. The first publisher token sign-in and an editor save should also be tried in your own browser; a successful build alone does not validate that login.
 
 ## Content and images
 

@@ -73,10 +73,11 @@ export async function getWorks(): Promise<Work[]> {
   return sortWorks(works);
 }
 
-// Featured first, then by sort order, newest year, title.
+// Explicit gallery order first. Featured is the fallback for records that have
+// not yet been arranged with the ordering tool.
 export const sortWorks = (works: Work[]) => [...works].sort((a, b) =>
-  Number(b.data.featured) - Number(a.data.featured) ||
   (a.data.order ?? 9999) - (b.data.order ?? 9999) ||
+  Number(b.data.featured) - Number(a.data.featured) ||
   (b.data.year ?? 0) - (a.data.year ?? 0) || a.data.title.localeCompare(b.data.title));
 
 // Where Astro keeps the original file, so sharp can read it at build time.

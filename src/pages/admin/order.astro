@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import { getWorks } from '../../lib/works';
+
+const works = await getWorks();
+const base = import.meta.env.BASE_URL;
+const recordPath = (id: string | undefined) => id
+  ? `src/content/works/${id.replace(/\.md$/, '')}.md`
+  : '';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Arrange portfolio gallery</title>
+    <style>
+      :root { color-scheme: dark; font: 16px/1.45 system-ui, sans-serif; color: #f2f2f2; background: #000; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      button, a { font: inherit; }
+      a { color: inherit; text-underline-offset: .2em; }
+      header, main { width: min(1312px, calc(100% - 64px)); margin-inline: auto; }
+      header { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 32px 0 24px; border-bottom: 1px solid #444; }
+      h1 { margin: 0; font-size: clamp(32px, 5vw, 64px); font-weight: 300; line-height: 1; }
+      header p { max-width: 54ch; margin: 12px 0 0; color: #aaa; }
+      .header-links { display: flex; gap: 20px; flex: none; }
+      .toolbar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 16px 0; background: rgba(0, 0, 0, .94); }
+      button { padding: 9px 14px; border: 1px solid #777; border-radius: 5px; color: #fff; background: #171717; cursor: pointer; }
+      button:hover:not(:disabled) { border-color: #fff; }
+      button:disabled { cursor: not-allowed; opacity: .45; }
+      #save { background: #2867d6; border-color: #2867d6; font-weight: 600; }
+      #status { margin: 0 0 0 8px; color: #aaa; }
+      .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 32px; padding: 24px 0 80px; margin: 0; list-style: none; }
+      .artwork { position: relative; min-width: 0; border: 1px solid transparent; border-radius: 5px; background: #080808; cursor: grab; }
+      .artwork.dragging { opacity: .45; }
+      .artwork:focus-within { border-color: #777; }
+      .artwork img { display: block; width: 100%; height: auto; }
+      .position { position: absolute; top: 8px; left: 8px; z-index: 2; min-width: 34px; padding: 6px 8px; border-radius: 4px; color: #fff; background: rgba(0, 0, 0, .82); text-align: center; font-weight: 700; }
+      .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px; }
+      .title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #bbb; font-size: 14px; }
+      .move { display: flex; gap: 6px; flex: none; }
+      .move button { width: 34px; height: 34px; padding: 0; }
+      @media (max-width: 900px) {
+        header { align-items: start; flex-direction: column; }
+        .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+      }
+      @media (max-width: 560px) {
+        header, main { width: calc(100% - 32px); }
+        .gallery { grid-template-columns: 1fr; }
+        .toolbar { flex-wrap: wrap; }
+        #status { flex-basis: 100%; margin-left: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Arrange gallery</h1>
+        <p>Drag artworks into the order they should appear on the site, or use the arrow buttons. The first artwork also becomes the large featured image at the top.</p>
+      </div>
+      <div class="header-links">
+        <a href={`${base}admin/`}>Editor</a>
+        <a href={base}>Portfolio</a>
+      </div>
+    </header>
+    <main>
+      <div class="toolbar">
+        <button id="save" type="button" disabled>Save arrangement</button>
+        <button id="reset" type="button" disabled>Reset</button>
+        <p id="status" role="status" aria-live="polite">Showing the current site order.</p>
+      </div>
+      <ol class="gallery" id="artwork-order">
+        {works.map((work, index) => (
+          <li class="artwork" draggable="true" data-record-path={recordPath(work.entry?.id)} data-title={work.data.title}>
+            <span class="position" aria-hidden="true">{index + 1}</span>
+            <Image
+              src={work.data.image}
+              alt={work.data.imageAlt}
+              widths={[320, 640]}
+              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 45vw, 420px"
+              format="webp"
+              loading="lazy"
+            />
+            <div class="meta">
+              <span class="title">{work.data.title}</span>
+              <span class="move">
+                <button type="button" data-move="earlier" aria-label={`Move ${work.data.title} earlier`}>←</button>
+                <button type="button" data-move="later" aria-label={`Move ${work.data.title} later`}>→</button>
+              </span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </main>
+    <script is:inline type="module" src={`${base}admin/order.js`}></script>
+  </body>
+</html>

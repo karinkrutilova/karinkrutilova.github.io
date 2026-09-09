@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --check public/admin/bulk-upload/upload.js && node scripts/check-bulk-upload.mjs && node scripts/check-crops.mjs && node scripts/check-build.mjs",
+    "test": "node --check public/admin/bulk-upload/upload.js && node --check public/admin/order.js && node scripts/check-bulk-upload.mjs && node scripts/check-order.mjs && node scripts/check-crops.mjs && node scripts/check-build.mjs",
     "astro": "astro"
   },
   "dependencies": {

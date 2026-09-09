@@ -7,11 +7,17 @@
     <title>Edit portfolio</title>
     <link href="./config.yml" type="text/yaml" rel="cms-config-url" />
     <style>
-      .bulk-upload-link {
+      .admin-tools {
         position: fixed;
         right: 16px;
         bottom: 16px;
         z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .admin-tool-link {
         padding: 10px 14px;
         border-radius: 6px;
         color: #fff;
@@ -20,12 +26,15 @@
         text-decoration: none;
         box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
       }
-      .bulk-upload-link:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+      .admin-tool-link:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
     </style>
   </head>
   <body>
     <noscript>Enable JavaScript to use the portfolio editor.</noscript>
-    <a class="bulk-upload-link" href="./bulk-upload/">Bulk upload images</a>
+    <nav class="admin-tools" aria-label="Portfolio tools">
+      <a class="admin-tool-link" href="./order/">Arrange gallery</a>
+      <a class="admin-tool-link" href="./bulk-upload/">Bulk upload images</a>
+    </nav>
     <script src="https://unpkg.com/@sveltia/cms@0.208.2/dist/sveltia-cms.js"></script>
   </body>
 </html>
