@@ -27,11 +27,11 @@ nav a[aria-current] { color: #f2f2f2; padding-bottom: 4px; border-bottom: 1px so
 .section-heading { margin: 0; font-size: 26px; font-weight: 300; line-height: 1; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
 .works { padding-top: 28px; }
 .gallery { position: relative; isolation: isolate; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px 40px; padding: 28px 0 0; margin: 0; list-style: none; }
-.gallery::before { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background-color: #3b3b3b; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
+.gallery::before { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background-color: #1c1c1c; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
 .gallery > li { flex: 0 0 calc(50% - 20px); min-width: 0; }
 .work-link { display: flex; flex-direction: column; gap: 12px; }
 .work-link:hover { text-decoration: none; }
-.work-frame { display: block; overflow: hidden; border: 1px solid #303033; background: #303033; }
+.work-frame { display: block; overflow: hidden; border: 0; background: transparent; }
 .work-frame img { width: 100%; height: auto; }
 .work-link:hover .work-caption { text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 1px; }
 .work-caption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: #8c8c8c; }

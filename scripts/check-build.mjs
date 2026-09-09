@@ -93,7 +93,7 @@ assert.doesNotMatch(homeSource, /portrait/i);
 assert.doesNotMatch(homeSource, /class="hero-work"/);
 const globalStyles = await readFile('src/styles/global.css', 'utf8');
 assert.match(globalStyles, /\.gallery\s*\{[^}]*display:\s*flex[^}]*flex-wrap:\s*wrap/s);
-assert.match(globalStyles, /\.work-frame\s*\{[^}]*border:\s*1px solid #303033/s);
+assert.match(globalStyles, /\.work-frame\s*\{[^}]*border:\s*0[^}]*background:\s*transparent/s);
 assert.match(globalStyles, /\.work-frame img\s*\{[^}]*height:\s*auto/s);
 assert.doesNotMatch(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio/s);
 assert.doesNotMatch(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
@@ -102,6 +102,6 @@ assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320
 assert.match(globalStyles, /\.hero-bio p\s*\{[^}]*max-width:\s*none/s);
 assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
 assert.match(globalStyles, /\.gallery\s*\{[^}]*padding:\s*28px 0 0/s);
-assert.match(globalStyles, /\.gallery::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background-color:\s*#3b3b3b[^}]*background-image:\s*url\('\/gallery-smoke\.webp'\)/s);
+assert.match(globalStyles, /\.gallery::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background-color:\s*#1c1c1c[^}]*background-image:\s*url\('\/gallery-smoke\.webp'\)/s);
 assert.doesNotMatch(globalStyles, /radial-gradient|filter:\s*blur/);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
