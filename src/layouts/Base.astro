@@ -11,7 +11,7 @@ const isAbout = Astro.url.pathname === `${base}about/`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#08090a" />
     <title>{title} · {settings.name}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
@@ -25,7 +25,7 @@ const isAbout = Astro.url.pathname === `${base}about/`;
     <header class="site-header wrap">
       <a class="wordmark" href={base}>{settings.name}</a>
       <nav aria-label="Main navigation">
-        <a href={base} aria-current={!isAbout ? 'page' : undefined}>Works</a>
+        <a href={base} aria-current={!isAbout ? 'page' : undefined}>Artwork</a>
         <a href={`${base}about/`} aria-current={isAbout ? 'page' : undefined}>About</a>
       </nav>
     </header>

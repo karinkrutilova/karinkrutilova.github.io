@@ -58,4 +58,14 @@ assert.equal([...orderPage.matchAll(/data-record-path="src\/content\/works\/[^\"
 const orderScript = await readFile('dist/admin/order.js', 'utf8');
 assert.match(orderScript, /Reorder \$\{paths\.length\} portfolio artworks/);
 assert.match(orderScript, /\/git\/refs\/heads/);
+const home = await readFile('dist/index.html', 'utf8');
+assert.match(home, />Krútilová</);
+assert.match(home, />Artwork</);
+assert.doesNotMatch(home, /See the works/i);
+const homeSource = await readFile('src/pages/index.astro', 'utf8');
+assert.match(homeSource, /widths=\{\[104, 208\]\}/);
+const globalStyles = await readFile('src/styles/global.css', 'utf8');
+assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*104px/s);
+assert.match(globalStyles, /\.works\s*\{[^}]*linear-gradient/s);
+assert.match(globalStyles, /\.work-link > img\s*\{[^}]*border:/s);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);

@@ -1,7 +1,7 @@
 ---
-title: "Karin Krutilova Jazmine"
+title: "Jazmine"
 image: "/src/assets/works/karin-krutilova-jazmine.jpg"
-imageAlt: "Karin Krutilova Jazmine"
+imageAlt: "Jazmine"
 tags: []
 featured: false
 order: 24

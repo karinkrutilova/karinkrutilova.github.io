@@ -41,7 +41,7 @@ collections:
       - { name: imageAlt, label: Image description, widget: string, hint: 'Briefly describe what is visible for people using screen readers.' }
       - { name: body, label: Description, widget: markdown, required: false }
       - { name: tags, label: Tags, widget: list, required: false }
-      - { name: featured, label: Featured, widget: boolean, default: false, hint: 'Fallback for works not yet positioned with Arrange gallery.' }
+      - { name: featured, label: Featured, widget: boolean, default: false, hint: 'Fallback for artwork not yet positioned with Arrange gallery.' }
       - { name: order, label: Sort order, widget: number, value_type: int, required: false, hint: 'Managed most easily with Arrange gallery. Lower numbers appear first.' }
       - { name: credit, label: Artist credit, widget: string, required: false, hint: 'Only for works by someone else. Leave empty for your own.' }
       - { name: source, label: Source link, widget: string, required: false, pattern: ['^https://', 'Use a full HTTPS URL.'], hint: 'Where a credited work can be seen. Leave empty for your own.' }

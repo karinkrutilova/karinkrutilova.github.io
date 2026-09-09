@@ -18,7 +18,7 @@ const base = import.meta.env.BASE_URL;
 const details = settings.showDetails ? await pickDetailCrops(imagePath(image)) : [];
 ---
 <Base title={title} description={[title, year, medium].filter(Boolean).join(' · ')}>
-  <a class="back-link" href={base}>All works</a>
+  <a class="back-link" href={base}>All artwork</a>
   <article class="work-detail">
     <figure class="detail-image">
       <Image src={image} alt={imageAlt} widths={[800, 1600]} sizes="(max-width: 950px) 90vw, 800px" format="webp" loading="eager" />
@@ -51,7 +51,7 @@ const details = settings.showDetails ? await pickDetailCrops(imagePath(image)) :
     </section>
   )}
   {(prev || next) && (
-    <nav class="siblings" aria-label="Other works">
+    <nav class="siblings" aria-label="Other artwork">
       {prev && (
         <a href={`${base}works/${prev.id}/`}>
           <Image src={prev.data.image} alt={prev.data.imageAlt} widths={[160]} sizes="80px" format="webp" loading="lazy" />
