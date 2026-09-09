@@ -3,8 +3,7 @@ import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import settings from '../../content/settings.json';
-import { getWorks, imagePath, type Work } from '../../lib/works';
-import { pickDetailCrops, cropStyle } from '../../lib/detail-crops.mjs';
+import { getWorks, type Work } from '../../lib/works';
 export async function getStaticPaths() {
   const works = await getWorks();
   return works.map((work, i) => ({ params: { slug: work.id }, props: { work, prev: works[i - 1], next: works[i + 1] } }));
@@ -14,8 +13,6 @@ const { work, prev, next } = Astro.props;
 const Content = work.entry ? (await render(work.entry)).Content : undefined;
 const { title, year, medium, dimensions, image, imageAlt, tags, credit, source } = work.data;
 const base = import.meta.env.BASE_URL;
-// Close-ups are chosen at build time from the busiest regions of the image; switch off in Site text → settings.
-const details = settings.showDetails ? await pickDetailCrops(imagePath(image)) : [];
 ---
 <Base title={title} description={[title, year, medium].filter(Boolean).join(' · ')}>
   <a class="back-link" href={base}>All artwork</a>
@@ -38,18 +35,6 @@ const details = settings.showDetails ? await pickDetailCrops(imagePath(image)) :
       {settings.showMedium && credit && <p class="credit">{credit}{source && <> · <a href={source}>View museum record</a></>}</p>}
     </div>
   </article>
-  {details.length > 0 && (
-    <section class="details" aria-label="Close-ups">
-      <h2 class="section-heading">Details</h2>
-      <ul class="detail-crops">
-        {details.map((crop, index) => (
-          <li class="crop">
-            <Image src={image} alt={`${title}, close-up ${index + 1}`} widths={[1600]} sizes="(max-width: 950px) 90vw, 400px" format="webp" loading="lazy" style={cropStyle(crop)} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
   {(prev || next) && (
     <nav class="siblings" aria-label="Other artwork">
       {prev && (
