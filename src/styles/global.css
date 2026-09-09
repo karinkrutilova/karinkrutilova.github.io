@@ -10,8 +10,9 @@ figcaption { font-size: 14px; color: #8c8c8c; margin-top: 10px; }
 .wrap { width: min(1312px, calc(100% - 128px)); margin-inline: auto; }
 .rule { border: 0; border-top: 1px solid rgba(255, 255, 255, .3); margin: 0; }
 
-.site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 36px 0 22px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
+.site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 36px 0 16px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
 .wordmark { font-weight: 500; letter-spacing: .02em; }
+main { padding-top: 6px; }
 nav { display: flex; gap: 36px; }
 nav a { color: #8c8c8c; }
 nav a:hover { color: #f2f2f2; text-decoration: none; }
@@ -27,7 +28,7 @@ nav a[aria-current] { color: #f2f2f2; padding-bottom: 4px; border-bottom: 1px so
 .section-heading { margin: 0; font-size: 26px; font-weight: 300; line-height: 1; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
 .works { position: relative; isolation: isolate; padding-top: 28px; }
 .works::before { content: ''; position: absolute; z-index: -2; inset: 0 calc(50% - 50vw); background: #1c1c1c; box-shadow: inset 0 1px rgba(255, 255, 255, .3); pointer-events: none; }
-.works::after { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); opacity: .7; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
+.works::after { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); opacity: .57; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
 .works > .section-heading { padding-bottom: 0; border-bottom: 0; font-weight: 400; }
 .gallery { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px 40px; padding: 28px 0 0; margin: 0; list-style: none; }
 .gallery > li { flex: 0 0 calc(50% - 20px); min-width: 0; }
@@ -90,7 +91,7 @@ dd { margin: 0; }
   .detail-crops { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (max-width: 620px) {
-  .site-header { flex-wrap: wrap; align-items: center; row-gap: 0; padding: 18px 0 8px; }
+  .site-header { flex-wrap: wrap; align-items: center; row-gap: 0; padding: 18px 0 2px; }
   nav { gap: 22px; }
   nav a { padding: 12px 0; }
   nav a[aria-current] { padding-bottom: 12px; }

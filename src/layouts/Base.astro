@@ -26,7 +26,7 @@ const isContact = Astro.url.pathname.startsWith(contactPath);
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header wrap">
-      <a class="wordmark" href={base}>K.K. - freelance illustration</a>
+      <a class="wordmark" href={base}>K.K. — freelance illustration</a>
       <nav aria-label="Main navigation">
         <a href={base} aria-current={!isProjects && !isContact ? 'page' : undefined}>Artwork</a>
         <a href={projectsPath} aria-current={isProjects ? 'page' : undefined}>Projects</a>
