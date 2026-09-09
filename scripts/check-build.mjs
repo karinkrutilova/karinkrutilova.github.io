@@ -34,4 +34,5 @@ await access('dist/admin/config.yml');
 const adminConfig = await readFile('dist/admin/config.yml', 'utf8');
 assert.match(adminConfig, /asset_collections:\s+[\s\S]*label: Artwork images/);
 assert.match(adminConfig, /media_libraries:\s+[\s\S]*slugify_filename: true/);
+assert.doesNotMatch(adminConfig, /max_file_size:/, 'Bulk uploads must not be partially rejected by a CMS file-size cap');
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);

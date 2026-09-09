@@ -15,7 +15,7 @@ A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content
 5. Uploads and edits commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
 6. Open **Site text** to change the artist name, gallery introduction, or About/contact text. Add an email link in the About text when ready.
 
-Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB. The editor's upload limit is 2 MB. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
+Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The editor does not impose its own file-size limit on bulk uploads. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
 
 Featured works appear first. Within each group, lower sort-order numbers appear first; unnumbered works follow, newest year first. Each work has its own page. Tags are displayed on that page; there are no filters yet.
 
