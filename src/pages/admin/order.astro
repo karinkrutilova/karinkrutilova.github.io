@@ -32,7 +32,7 @@ const recordPath = (id: string | undefined) => id
       button:disabled { cursor: not-allowed; opacity: .45; }
       #save { background: #2867d6; border-color: #2867d6; font-weight: 600; }
       #status { margin: 0 0 0 8px; color: #aaa; }
-      .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 32px; padding: 24px 0 80px; margin: 0; list-style: none; }
+      .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 20px; padding: 24px 0 80px; margin: 0; list-style: none; }
       .artwork { position: relative; min-width: 0; border: 1px solid transparent; border-radius: 5px; background: #080808; cursor: grab; }
       .artwork.dragging { opacity: .45; }
       .artwork:focus-within { border-color: #777; }
@@ -45,11 +45,11 @@ const recordPath = (id: string | undefined) => id
       .move button { width: 34px; height: 34px; padding: 0; }
       @media (max-width: 900px) {
         header { align-items: start; flex-direction: column; }
-        .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+        .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 16px; }
       }
       @media (max-width: 560px) {
         header, main { width: calc(100% - 32px); }
-        .gallery { grid-template-columns: 1fr; }
+        .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
         .toolbar { flex-wrap: wrap; }
         #status { flex-basis: 100%; margin-left: 0; }
       }
@@ -81,7 +81,7 @@ const recordPath = (id: string | undefined) => id
                 src={work.data.image}
                 alt={work.data.imageAlt}
                 widths={[320, 640]}
-                sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 45vw, 420px"
+                sizes="(max-width: 560px) calc((100vw - 44px) / 2), (max-width: 900px) 30vw, 313px"
                 format="webp"
                 loading="lazy"
               />
