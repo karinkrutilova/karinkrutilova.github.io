@@ -25,9 +25,11 @@ nav a[aria-current] { color: #f2f2f2; padding-bottom: 4px; border-bottom: 1px so
 .crop img { position: absolute; height: auto; max-width: none; }
 
 .section-heading { margin: 0; font-size: 26px; font-weight: 300; line-height: 1; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
-.works { padding-top: 28px; }
-.gallery { position: relative; isolation: isolate; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px 40px; padding: 28px 0 0; margin: 0; list-style: none; }
-.gallery::before { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background-color: #1c1c1c; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
+.works { position: relative; isolation: isolate; padding-top: 28px; }
+.works::before { content: ''; position: absolute; z-index: -2; inset: 0 calc(50% - 50vw); background: #1c1c1c; box-shadow: inset 0 1px rgba(255, 255, 255, .3); pointer-events: none; }
+.works::after { content: ''; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); opacity: .7; background-image: url('/gallery-smoke.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; pointer-events: none; }
+.works > .section-heading { padding-bottom: 0; border-bottom: 0; }
+.gallery { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px 40px; padding: 28px 0 0; margin: 0; list-style: none; }
 .gallery > li { flex: 0 0 calc(50% - 20px); min-width: 0; }
 .work-link { display: flex; flex-direction: column; gap: 12px; }
 .work-link:hover { text-decoration: none; }
