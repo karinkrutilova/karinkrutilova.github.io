@@ -96,11 +96,11 @@ assert.match(globalStyles, /\.work-frame\s*\{[^}]*border:\s*1px solid #303033/s)
 assert.match(globalStyles, /\.work-frame img\s*\{[^}]*height:\s*auto/s);
 assert.doesNotMatch(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio/s);
 assert.doesNotMatch(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
-assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 380px\) minmax\(0, 1fr\)[^}]*padding:\s*8px 12px 4px/s);
+assert.match(globalStyles, /body\s*\{[^}]*background:\s*#000/s);
+assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 380px\) minmax\(0, 1fr\)[^}]*padding:\s*8px 0 4px/s);
 assert.match(globalStyles, /\.hero-bio p\s*\{[^}]*max-width:\s*none/s);
 assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
-assert.match(globalStyles, /\.hero::before\s*\{[^}]*radial-gradient[^}]*filter:\s*blur\(18px\)/s);
-assert.match(globalStyles, /\.hero::after\s*\{[^}]*72px 1px no-repeat[^}]*1px 18px no-repeat/s);
-assert.match(globalStyles, /\.works::before\s*\{[^}]*background-color:\s*#070708[^}]*background-image:\s*radial-gradient/s);
 assert.match(globalStyles, /\.gallery\s*\{[^}]*padding:\s*28px 0 0/s);
+assert.match(globalStyles, /\.gallery::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background:\s*#3b3b3b/s);
+assert.doesNotMatch(globalStyles, /radial-gradient|filter:\s*blur/);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
