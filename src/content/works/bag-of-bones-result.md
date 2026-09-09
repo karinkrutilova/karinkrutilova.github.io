@@ -4,4 +4,5 @@ image: "/src/assets/works/bag-of-bones-result.png"
 imageAlt: "Bag Of Bones Result"
 tags: []
 featured: false
+order: 8
 ---
