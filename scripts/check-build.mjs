@@ -116,7 +116,7 @@ assert.match(globalStyles, /\.work-frame img\s*\{[^}]*height:\s*auto/s);
 assert.doesNotMatch(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio/s);
 assert.doesNotMatch(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
 assert.match(globalStyles, /body\s*\{[^}]*background:\s*#000/s);
-assert.match(globalStyles, /\.wordmark-icon\s*\{[^}]*width:\s*28px[^}]*stroke:\s*currentColor/s);
+assert.match(globalStyles, /\.wordmark-icon\s*\{[^}]*width:\s*32px[^}]*stroke:\s*currentColor/s);
 assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 380px\) minmax\(0, 1fr\)[^}]*padding:\s*8px 0 29px/s);
 assert.match(globalStyles, /\.hero-bio p\s*\{[^}]*max-width:\s*none/s);
 assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
