@@ -2,20 +2,19 @@
 
 A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content and images in Git, no database or application backend.
 
-- Site: https://karinkrutilova.github.io/portfolio/
-- Editor: https://karinkrutilova.github.io/portfolio/admin/
-- Deployment status: https://github.com/karinkrutilova/portfolio/actions
+- Site: https://karinkrutilova.github.io/
+- Editor: https://karinkrutilova.github.io/admin/
+- Deployment status: https://github.com/karinkrutilova/karinkrutilova.github.io/actions
 
 ## Edit the portfolio
 
-1. Create a [fine-grained GitHub personal access token](https://github.com/settings/personal-access-tokens/new). Select resource owner **karinkrutilova**, repository access **Only select repositories → portfolio**, and repository permission **Contents: Read and write**. Metadata read access is automatic. Choose an expiration date; renew the token when it expires.
+1. Create a [fine-grained GitHub personal access token](https://github.com/settings/personal-access-tokens/new). Select resource owner **karinkrutilova**, repository access **Only select repositories → karinkrutilova.github.io**, and repository permission **Contents: Read and write**. Metadata read access is automatic. Choose an expiration date; renew the token when it expires.
 2. Open the editor and choose **Sign In with Token**. Paste the token there. Never put it in this repository or send it in chat. Sveltia keeps the token in that browser's local storage; sign out when using a shared computer.
 3. Choose **Bulk upload images** in the bottom-right corner of the editor, select as many images as you need, then choose **Upload selected images**. This reliable uploader sends file data independently and publishes the successful files together, avoiding the CMS's all-or-nothing batch limit. No title, year, description or other fields are required. The filename supplies the initial title and image description, so use a short descriptive name such as `blue-portrait.jpg`.
 4. Open **Artwork details** to edit the automatically created record for any image. Here you can change its title, description, image description, year, ordering, and other optional details.
 5. Choose **Arrange gallery** in the bottom-right corner to see the current site sequence. Drag images or use the arrow buttons, then choose **Save arrangement**. Position 1 is the first artwork beneath the introduction.
 6. Uploads and edits commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
-7. Open **Site text** to change the artist name, gallery introduction, portrait, or footer contact links.
-8. In **Site text → Name and introduction**, use **Portrait photo** to upload or choose a profile image. Portrait files are stored separately under `src/assets/site/` and never enter the artwork gallery.
+7. Open **Site text** to change the artist name, gallery introduction, or footer contact links.
 
 Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The custom bulk uploader accepts files up to GitHub's 100 MB per-file limit and reports an exact error for each rejected file. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
 
@@ -30,7 +29,7 @@ Requires Node 24 and npm.
 ```sh
 npm ci
 npm run dev -- --background
-# Open http://localhost:4321/portfolio/
+# Open http://localhost:4321/
 npm run dev -- status
 npm run dev -- stop
 

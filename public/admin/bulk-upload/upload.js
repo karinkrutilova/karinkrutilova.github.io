@@ -2,7 +2,7 @@
   'use strict';
 
   const owner = 'karinkrutilova';
-  const repo = 'portfolio';
+  const repo = 'karinkrutilova.github.io';
   const branch = 'main';
   const assetDirectory = 'src/assets/works';
   const detailsDirectory = 'src/content/works';

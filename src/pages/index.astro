@@ -2,21 +2,14 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import settings from '../content/settings.json';
-import { getSiteImage } from '../lib/site-images';
 import { getWorks } from '../lib/works';
 const works = await getWorks();
 const base = import.meta.env.BASE_URL;
-const portrait = getSiteImage(settings.portrait);
 ---
 <Base title={settings.heading}>
   <section class="hero">
     <div class="hero-identity">
       <h1>{settings.name}</h1>
-      {portrait && (
-        <figure class="hero-portrait">
-          <Image src={portrait} alt={`Portrait of ${settings.name}`} widths={[160, 320]} sizes="160px" format="webp" loading="eager" />
-        </figure>
-      )}
     </div>
     <div class="hero-bio"><p>{settings.intro}</p></div>
   </section>

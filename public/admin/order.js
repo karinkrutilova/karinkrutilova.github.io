@@ -1,7 +1,7 @@
 import { setFrontmatterOrder } from './order-utils.js';
 
 const owner = 'karinkrutilova';
-const repo = 'portfolio';
+const repo = 'karinkrutilova.github.io';
 const branch = 'main';
 const list = document.querySelector('#artwork-order');
 const saveButton = document.querySelector('#save');
