@@ -15,6 +15,7 @@ const settings = JSON.parse(await readFile('src/content/settings.json', 'utf8'))
 const pages = files.filter(file => file.endsWith('.html') && !file.startsWith('admin/'));
 assert(pages.includes('index.html'), 'Missing home page');
 assert(pages.includes('projects/index.html'), 'Missing projects page');
+assert(pages.includes('contact/index.html'), 'Missing contact page');
 assert(!pages.includes('about/index.html'), 'About page should not be published');
 for (const page of pages) {
   const html = await readFile(join('dist', page), 'utf8');
@@ -88,16 +89,24 @@ assert.doesNotMatch(home, /Karin Krutilová/, 'The known surname misspelling has
 assert.doesNotMatch(home, />About</);
 assert.doesNotMatch(home, /See the works/i);
 assert.equal([...home.matchAll(/class="work-frame"/g)].length, artworkFiles.length);
-assert.match(home, /data-justified-gallery/);
+assert.match(home, /data-paired-gallery/);
 assert.equal([...home.matchAll(/data-aspect-ratio="[0-9.]+"/g)].length, artworkFiles.length);
+const galleryItems = [...home.matchAll(/<li data-aspect-ratio="([0-9.]+)" data-shape="(portrait|square)">/g)];
+assert.equal(galleryItems.length, artworkFiles.length);
+for (let index = 0; index + 1 < galleryItems.length; index += 2) {
+  assert.equal(galleryItems[index][2], galleryItems[index + 1][2], `Gallery row ${index / 2 + 1} mixes image shapes`);
+}
 assert.match(home, /src="\/gallery\.js"/);
 const projects = await readFile('dist/projects/index.html', 'utf8');
 assert.match(projects, /<h1[^>]*>Projects<\/h1>/);
 assert.match(projects, /Projects will be added soon\./);
 assert.match(projects, />K\.K\. - freelance illustration<\/a>/);
 assert.match(projects, /href="\/projects\/" aria-current="page"/);
+const contact = await readFile('dist/contact/index.html', 'utf8');
+assert.match(contact, /<h1[^>]*>Contact<\/h1>/);
+assert.match(contact, /href="\/contact\/" aria-current="page"/);
 const homeSource = await readFile('src/pages/index.astro', 'utf8');
-assert.doesNotMatch(homeSource, /portrait/i);
+assert.match(homeSource, /arrangeWorksInShapePairs/);
 assert.doesNotMatch(homeSource, /class="hero-work"/);
 const globalStyles = await readFile('src/styles/global.css', 'utf8');
 assert.match(globalStyles, /\.gallery\s*\{[^}]*display:\s*flex[^}]*flex-wrap:\s*wrap/s);
@@ -106,7 +115,7 @@ assert.match(globalStyles, /\.work-frame img\s*\{[^}]*height:\s*auto/s);
 assert.doesNotMatch(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio/s);
 assert.doesNotMatch(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
 assert.match(globalStyles, /body\s*\{[^}]*background:\s*#000/s);
-assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 380px\) minmax\(0, 1fr\)[^}]*padding:\s*8px 0 14px/s);
+assert.match(globalStyles, /\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 380px\) minmax\(0, 1fr\)[^}]*padding:\s*8px 0 29px/s);
 assert.match(globalStyles, /\.hero-bio p\s*\{[^}]*max-width:\s*none/s);
 assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
 assert.match(globalStyles, /\.works > \.section-heading\s*\{[^}]*border-bottom:\s*0/s);

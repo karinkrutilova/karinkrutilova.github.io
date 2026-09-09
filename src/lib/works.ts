@@ -19,6 +19,13 @@ export type Work = {
   };
 };
 
+export type GalleryShape = 'portrait' | 'square';
+
+export type ArrangedWork = {
+  work: Work;
+  shape: GalleryShape;
+};
+
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/works/**/*.{avif,gif,jpeg,jpg,png,webp}',
   { eager: true },
@@ -79,6 +86,46 @@ export const sortWorks = (works: Work[]) => [...works].sort((a, b) =>
   (a.data.order ?? 9999) - (b.data.order ?? 9999) ||
   Number(b.data.featured) - Number(a.data.featured) ||
   (b.data.year ?? 0) - (a.data.year ?? 0) || a.data.title.localeCompare(b.data.title));
+
+// Keep the manually arranged order within each shape, but release works in
+// matching pairs so every desktop row contains two similarly proportioned
+// images. Near-square landscape images belong to the square group.
+export const arrangeWorksInShapePairs = (works: Work[]): ArrangedWork[] => {
+  const threshold = 0.9;
+  const items = works.map((work) => ({
+    work,
+    ratio: work.data.image.width / work.data.image.height,
+    shape: (work.data.image.width / work.data.image.height < threshold ? 'portrait' : 'square') as GalleryShape,
+  }));
+
+  const portraitCount = items.filter(({ shape }) => shape === 'portrait').length;
+  const squareCount = items.length - portraitCount;
+
+  // When both groups are odd, move only the closest-to-square image across
+  // the threshold so mixed-shape rows are still avoided after future uploads.
+  if (portraitCount % 2 === 1 && squareCount % 2 === 1) {
+    const closest = items.reduce((best, item) =>
+      Math.abs(item.ratio - threshold) < Math.abs(best.ratio - threshold) ? item : best,
+    );
+    closest.shape = closest.shape === 'portrait' ? 'square' : 'portrait';
+  }
+
+  const waiting: Record<GalleryShape, typeof items> = { portrait: [], square: [] };
+  const arranged: ArrangedWork[] = [];
+
+  for (const item of items) {
+    const queue = waiting[item.shape];
+    queue.push(item);
+    if (queue.length === 2) {
+      arranged.push(...queue.map(({ work, shape }) => ({ work, shape })));
+      queue.length = 0;
+    }
+  }
+
+  arranged.push(...waiting.portrait.map(({ work, shape }) => ({ work, shape })));
+  arranged.push(...waiting.square.map(({ work, shape }) => ({ work, shape })));
+  return arranged;
+};
 
 // Where Astro keeps the original file, so sharp can read it at build time.
 export const imagePath = (image: ImageMetadata) => (image as ImageMetadata & { fsPath?: string }).fsPath ?? image.src;
