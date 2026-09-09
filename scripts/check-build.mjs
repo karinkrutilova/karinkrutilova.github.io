@@ -70,6 +70,7 @@ const homeSource = await readFile('src/pages/index.astro', 'utf8');
 assert.match(homeSource, /getSiteImage\(settings\.portrait\)/);
 assert.doesNotMatch(homeSource, /class="hero-work"/);
 const globalStyles = await readFile('src/styles/global.css', 'utf8');
-assert.match(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio:\s*4\s*\/\s*5[^}]*padding:\s*3px/s);
+assert.match(globalStyles, /\.gallery\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
+assert.match(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio:\s*4\s*\/\s*5[^}]*padding:\s*1px/s);
 assert.match(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
