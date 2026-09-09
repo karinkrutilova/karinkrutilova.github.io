@@ -20,18 +20,18 @@ asset_collections:
     public_folder: /src/assets/works
 collections:
   - name: works
-    label: Artwork details (optional)
+    label: Artwork details
     label_singular: Artwork details
-    description: 'Images uploaded under Assets → Artwork images appear on the site automatically. Add or edit a record here only when you want custom details.'
+    description: 'Every image uploaded with Bulk upload images has a matching record here. Open one to edit its title, description, accessibility text, ordering, and other optional details.'
     folder: src/content/works
     create: true
     slug: '{{slug}}'
     preview_path: 'works/{{slug}}/'
-    summary: '{{title}} · {{year}}'
+    summary: '{{title}}'
     sortable_fields: [order, title, year]
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: year, label: Year, widget: number, value_type: int, required: false }
       - { name: medium, label: Medium, widget: string, required: false }
       - { name: dimensions, label: Dimensions, widget: string, required: false, hint: 'For example: 40 × 60 cm' }
       - name: image

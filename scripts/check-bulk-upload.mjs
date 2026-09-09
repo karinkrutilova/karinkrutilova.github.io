@@ -73,11 +73,20 @@ const treeRequest = requests.find(({ path, method }) => path.endsWith('/git/tree
 const tree = JSON.parse(treeRequest.options.body).tree;
 assert.deepEqual(tree.map(({ path }) => path), [
   'src/assets/works/one-image-2.jpg',
+  'src/content/works/one-image-2.md',
   'src/assets/works/one-image-3.jpg',
+  'src/content/works/one-image-3.md',
 ]);
+const details = tree.filter(({ path }) => path.startsWith('src/content/works/'));
+assert.equal(details.length, 2, 'each image should get an Artwork details entry');
+assert.match(details[0].content, /title: "One Image 2"/);
+assert.match(details[0].content, /image: "\/src\/assets\/works\/one-image-2\.jpg"/);
+assert.match(details[0].content, /imageAlt: "One Image 2"/);
+assert.match(details[0].content, /featured: false/);
 assert.equal(requests.filter(({ path, method }) => path.endsWith('/git/commits') && method === 'POST').length, 1);
 assert.equal(requests.filter(({ path, method }) => path.endsWith('/git/refs/heads/main') && method === 'PATCH').length, 1);
 assert(requests.every(({ options }) => options.headers?.Authorization === 'Bearer test-secret'));
 assert.match(status.textContent, /Uploaded 2 of 2 images successfully/);
+assert.match(status.textContent, /Created 2 matching Artwork details entries/);
 assert(!status.textContent.includes('test-secret'), 'token must never be displayed');
-console.log('Bulk uploader: independent blobs, safe filenames, one commit, and no token exposure.');
+console.log('Bulk uploader: independent blobs, matching detail entries, safe filenames, one commit, and no token exposure.');

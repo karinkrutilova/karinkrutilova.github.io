@@ -5,6 +5,7 @@
   const repo = 'portfolio';
   const branch = 'main';
   const assetDirectory = 'src/assets/works';
+  const detailsDirectory = 'src/content/works';
   const maxFileSize = 100 * 1024 * 1024;
   const allowedExtensions = new Set(['avif', 'gif', 'jpeg', 'jpg', 'png', 'webp']);
   const filesInput = document.querySelector('#files');
@@ -72,14 +73,37 @@
     let suffix = 1;
     let name = `${stem}.${extension}`;
     let path = `${assetDirectory}/${name}`;
+    let detailsPath = `${detailsDirectory}/${stem}.md`;
 
-    while (usedPaths.has(path.toLowerCase())) {
+    while (usedPaths.has(path.toLowerCase()) || usedPaths.has(detailsPath.toLowerCase())) {
       suffix += 1;
       name = `${stem}-${suffix}.${extension}`;
       path = `${assetDirectory}/${name}`;
+      detailsPath = `${detailsDirectory}/${stem}-${suffix}.md`;
     }
     usedPaths.add(path.toLowerCase());
-    return { name, path };
+    usedPaths.add(detailsPath.toLowerCase());
+    return { name, path, detailsPath };
+  };
+
+  const titleFromName = (name) => {
+    const stem = name.replace(/\.[^.]+$/, '');
+    const title = stem.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+    return title ? title.replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'Untitled';
+  };
+
+  const detailsContent = ({ name, path }) => {
+    const title = titleFromName(name);
+    return [
+      '---',
+      `title: ${JSON.stringify(title)}`,
+      `image: ${JSON.stringify(`/${path}`)}`,
+      `imageAlt: ${JSON.stringify(title)}`,
+      'tags: []',
+      'featured: false',
+      '---',
+      '',
+    ].join('\n');
   };
 
   const encodeFile = (file) => new Promise((resolve, reject) => {
@@ -125,13 +149,16 @@
         method: 'POST',
         body: JSON.stringify({
           base_tree: head.treeSha,
-          tree: files.map(({ path, sha }) => ({ path, mode: '100644', type: 'blob', sha })),
+          tree: files.flatMap((file) => [
+            { path: file.path, mode: '100644', type: 'blob', sha: file.sha },
+            { path: file.detailsPath, mode: '100644', type: 'blob', content: detailsContent(file) },
+          ]),
         }),
       });
       const commit = await github(`/repos/${owner}/${repo}/git/commits`, {
         method: 'POST',
         body: JSON.stringify({
-          message: `Bulk upload ${files.length} artwork image${files.length === 1 ? '' : 's'}`,
+          message: `Bulk upload ${files.length} artwork image${files.length === 1 ? '' : 's'} and details`,
           tree: tree.sha,
           parents: [head.commitSha],
         }),
@@ -191,6 +218,7 @@
 
       setStatus([
         `Uploaded ${uploaded.successes.length} of ${selectedFiles.length} images successfully.`,
+        `Created ${uploaded.successes.length} matching Artwork details ${uploaded.successes.length === 1 ? 'entry' : 'entries'}.`,
         `Commit: ${commitSha.slice(0, 7)}`,
         failureLines.length ? `\nFiles not uploaded:\n${failureLines.join('\n')}` : '\nAll selected images were uploaded.',
       ].join('\n'));
