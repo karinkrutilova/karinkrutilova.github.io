@@ -18,7 +18,7 @@ A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content
 
 Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The custom bulk uploader accepts files up to GitHub's 100 MB per-file limit and reports an exact error for each rejected file. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
 
-The saved gallery order appears first. Unnumbered artwork follows, with featured items before the rest, then newest year and title. Each artwork has its own page. Tags are displayed on that page; there are no filters yet.
+The saved gallery order appears first. Unnumbered artwork follows, with featured items before the rest, then newest year and title. The home gallery uses each file's dimensions to build justified rows without cropping the artwork. Each artwork has its own page. Tags are displayed on that page; there are no filters yet.
 
 The gallery shows a note about sample artwork only while any artwork has a source link.
 
