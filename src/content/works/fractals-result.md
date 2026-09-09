@@ -4,5 +4,5 @@ image: "/src/assets/works/fractals-result.png"
 imageAlt: "Fractals Result"
 tags: []
 featured: false
-order: 8
+order: 5
 ---
