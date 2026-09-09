@@ -11,7 +11,8 @@ figcaption { font-size: 14px; color: #8c8c8c; margin-top: 10px; }
 .rule { border: 0; border-top: 1px solid rgba(255, 255, 255, .3); margin: 0; }
 
 .site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 36px 0 16px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
-.wordmark { font-weight: 500; letter-spacing: .02em; }
+.wordmark { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: .02em; }
+.wordmark-icon { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 main { padding-top: 6px; }
 nav { display: flex; gap: 36px; }
 nav a { color: #8c8c8c; }

@@ -26,7 +26,14 @@ const isContact = Astro.url.pathname.startsWith(contactPath);
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header wrap">
-      <a class="wordmark" href={base}>K.K. — freelance illustration</a>
+      <a class="wordmark" href={base}>
+        <span>K.K. — freelance illustration</span>
+        <svg class="wordmark-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 3h10l3 8-8 10L4 11l3-8Z" />
+          <path d="M12 3v11m-4.5 3.5L12 14l4.5 3.5" />
+          <circle cx="12" cy="14" r="1.5" />
+        </svg>
+      </a>
       <nav aria-label="Main navigation">
         <a href={base} aria-current={!isProjects && !isContact ? 'page' : undefined}>Artwork</a>
         <a href={projectsPath} aria-current={isProjects ? 'page' : undefined}>Projects</a>
