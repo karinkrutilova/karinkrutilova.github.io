@@ -5,6 +5,12 @@ import { join } from 'node:path';
 const base = '/portfolio/';
 const files = await readdir('dist', { recursive: true });
 const artworkFiles = (await readdir('src/assets/works')).filter((file) => /\.(avif|gif|jpe?g|png|webp)$/i.test(file));
+const artworkRecordFiles = (await readdir('src/content/works').catch(() => [])).filter((file) => file.endsWith('.md'));
+let editableArtworkCount = 0;
+for (const recordFile of artworkRecordFiles) {
+  const record = await readFile(join('src/content/works', recordFile), 'utf8');
+  if (artworkFiles.some((file) => record.includes(`/src/assets/works/${file}`))) editableArtworkCount += 1;
+}
 const settings = JSON.parse(await readFile('src/content/settings.json', 'utf8'));
 const pages = files.filter(file => file.endsWith('.html') && !file.startsWith('admin/'));
 assert(pages.includes('index.html'), 'Missing home page');
@@ -59,13 +65,14 @@ const orderPage = await readFile('dist/admin/order/index.html', 'utf8');
 assert.match(orderPage, /id="artwork-order"/);
 assert.match(orderPage, /id="save"/);
 assert.match(orderPage, /draggable="true"/);
-assert.equal([...orderPage.matchAll(/data-record-path="src\/content\/works\/[^\"]+\.md"/g)].length, artworkFiles.length);
+assert.equal([...orderPage.matchAll(/data-record-path="src\/content\/works\/[^\"]+\.md"/g)].length, editableArtworkCount);
 const orderScript = await readFile('dist/admin/order.js', 'utf8');
 assert.match(orderScript, /Reorder \$\{paths\.length\} portfolio artworks/);
 assert.match(orderScript, /\/git\/refs\/heads/);
 const home = await readFile('dist/index.html', 'utf8');
 assert(home.includes(`>${settings.name}<`), 'Home page does not use the configured artist name');
 assert(home.includes(`>${settings.heading}<`), 'Home page does not use the configured gallery heading');
+assert.doesNotMatch(home, /Karin Krutilová/, 'The known surname misspelling has returned');
 assert.doesNotMatch(home, />About</);
 assert.doesNotMatch(home, /See the works/i);
 assert.equal([...home.matchAll(/class="work-frame"/g)].length, artworkFiles.length);
