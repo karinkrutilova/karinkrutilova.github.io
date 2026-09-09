@@ -1,15 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import settings from '../content/settings.json';
-import { sortWorks, imagePath } from '../lib/works';
+import { getWorks, imagePath, type Work } from '../lib/works';
 import { pickDetailCrops, cropStyle } from '../lib/detail-crops.mjs';
-const works = sortWorks(await getCollection('works'));
+const works = await getWorks();
 const base = import.meta.env.BASE_URL;
 const featured = works[0];
 const [detail] = featured && settings.showDetails ? await pickDetailCrops(imagePath(featured.data.image), { count: 1 }) : [];
-const caption = (work: typeof featured) => [settings.showTitle && work.data.title, settings.showYear && work.data.year].filter(Boolean).join(', ');
+const caption = (work: Work) => [settings.showTitle && work.data.title, settings.showYear && work.data.year].filter(Boolean).join(', ');
 ---
 <Base title={settings.heading}>
   <section class="hero">

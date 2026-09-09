@@ -8,10 +8,22 @@ display_url: https://karinkrutilova.github.io/portfolio/
 logo_url: https://karinkrutilova.github.io/portfolio/favicon.svg
 media_folder: /src/assets/works
 public_folder: /src/assets/works
+media_libraries:
+  default:
+    config:
+      max_file_size: 2000000
+      slugify_filename: true
+asset_collections:
+  - name: artwork_images
+    label: Artwork images
+    icon: image
+    media_folder: /src/assets/works
+    public_folder: /src/assets/works
 collections:
   - name: works
-    label: Works
-    label_singular: Work
+    label: Artwork details (optional)
+    label_singular: Artwork details
+    description: 'Images uploaded under Assets → Artwork images appear on the site automatically. Add or edit a record here only when you want custom details.'
     folder: src/content/works
     create: true
     slug: '{{slug}}'
@@ -26,10 +38,7 @@ collections:
       - name: image
         label: Image
         widget: image
-        hint: 'Export around 2000 px on the long edge, ideally under 500 KB. Use JPG, PNG, or WebP. Upload only images you want to make public.'
-        media_library:
-          config:
-            max_file_size: 2000000
+        hint: 'Choose the matching file from Artwork images. Export around 2000 px on the long edge, ideally under 500 KB.'
       - { name: imageAlt, label: Image description, widget: string, hint: 'Briefly describe what is visible for people using screen readers.' }
       - { name: body, label: Description, widget: markdown, required: false }
       - { name: tags, label: Tags, widget: list, required: false }

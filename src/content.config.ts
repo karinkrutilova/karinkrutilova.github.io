@@ -4,13 +4,15 @@ import { z } from 'astro/zod';
 
 const works = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/works' }),
-  schema: ({ image }) => z.object({
-    title: z.string().min(1),
-    year: z.number().int(),
+  schema: z.object({
+    title: z.string().min(1).optional(),
+    year: z.number().int().optional(),
     medium: z.string().optional(),
     dimensions: z.string().optional(),
-    image: image(),
-    imageAlt: z.string().min(1),
+    // Keep this as a repository path. The gallery resolves it to an imported
+    // image when one exists, while allowing stale optional metadata records.
+    image: z.string(),
+    imageAlt: z.string().min(1).optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     order: z.number().int().optional(),
