@@ -14,14 +14,14 @@ A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content
 4. Open **Artwork details** to edit the automatically created record for any image. Here you can change its title, description, image description, year, ordering, and other optional details.
 5. Choose **Arrange gallery** in the bottom-right corner to see the current site sequence. Drag images or use the arrow buttons, then choose **Save arrangement**. Position 1 is the first artwork beneath the introduction.
 6. Uploads and edits commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
-7. Open **Site text** to change the artist name, gallery introduction, or About/contact text. Add an email link in the About text when ready.
+7. Open **Site text** to change the artist name, gallery introduction, portrait, or footer contact links.
 8. In **Site text → Name and introduction**, use **Portrait photo** to upload or choose a profile image. Portrait files are stored separately under `src/assets/site/` and never enter the artwork gallery.
 
 Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The custom bulk uploader accepts files up to GitHub's 100 MB per-file limit and reports an exact error for each rejected file. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
 
 The saved gallery order appears first. Unnumbered artwork follows, with featured items before the rest, then newest year and title. Each artwork has its own page. Tags are displayed on that page; there are no filters yet.
 
-The About text has bracketed placeholders to fill in. The gallery shows a note about sample artwork only while any artwork has a source link.
+The gallery shows a note about sample artwork only while any artwork has a source link.
 
 ## Local development
 
@@ -45,7 +45,6 @@ npm test
 - `src/content/works/*.md`: automatically created artwork metadata records and editable Markdown descriptions.
 - `src/assets/works/`: uploaded source images.
 - `src/content/settings.json`: name and gallery text.
-- `src/content/pages/about.md`: About/contact text.
 - `src/content.config.ts`: Astro collection schemas.
 - `public/admin/config.yml`: editor fields and GitHub backend.
 

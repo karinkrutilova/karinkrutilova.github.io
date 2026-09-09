@@ -20,8 +20,4 @@ const works = defineCollection({
     source: z.union([z.string().url().regex(/^https:\/\//), z.literal('')]).optional(),
   }),
 });
-const pages = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/pages' }),
-  schema: z.object({ title: z.string() }),
-});
-export const collections = { works, pages };
+export const collections = { works };

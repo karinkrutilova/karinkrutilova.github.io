@@ -71,9 +71,3 @@ collections:
           - { name: showMedium, label: Show medium and size, widget: boolean, default: false }
           - { name: showDescription, label: Show descriptions, widget: boolean, default: false }
           - { name: showTags, label: Show tags, widget: boolean, default: false }
-      - name: about
-        label: About and contact
-        file: src/content/pages/about.md
-        fields:
-          - { name: title, label: Page title, widget: string }
-          - { name: body, label: About and contact details, widget: markdown }
