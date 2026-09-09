@@ -4,4 +4,5 @@ image: "/src/assets/works/detail-3.png"
 imageAlt: "Detail 3"
 tags: []
 featured: false
+order: 12
 ---
