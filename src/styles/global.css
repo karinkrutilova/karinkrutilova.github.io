@@ -12,7 +12,7 @@ figcaption { font-size: 14px; color: #8c8c8c; margin-top: 10px; }
 
 .site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 36px 0 16px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
 .wordmark { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: .02em; }
-.wordmark-icon { width: 32px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+.wordmark-icon { width: 28px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
 main { padding-top: 6px; }
 nav { display: flex; gap: 36px; }
 nav a { color: #8c8c8c; }
