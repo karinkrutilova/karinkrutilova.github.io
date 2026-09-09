@@ -18,6 +18,11 @@ asset_collections:
     icon: image
     media_folder: /src/assets/works
     public_folder: /src/assets/works
+  - name: site_images
+    label: Site images
+    icon: account_circle
+    media_folder: /src/assets/site
+    public_folder: /src/assets/site
 collections:
   - name: works
     label: Artwork details
@@ -47,6 +52,8 @@ collections:
       - { name: source, label: Source link, widget: string, required: false, pattern: ['^https://', 'Use a full HTTPS URL.'], hint: 'Where a credited work can be seen. Leave empty for your own.' }
   - name: pages
     label: Site text
+    media_folder: /src/assets/site
+    public_folder: /src/assets/site
     files:
       - name: settings
         label: Name and introduction
@@ -55,6 +62,7 @@ collections:
           - { name: name, label: Artist or site name, widget: string }
           - { name: heading, label: Gallery heading, widget: string }
           - { name: intro, label: Short introduction, widget: text }
+          - { name: portrait, label: Portrait photo, widget: image, required: false, hint: 'Upload your portrait here. It appears below your name and remains separate from the artwork gallery.' }
           - { name: instagram, label: Instagram link, widget: string, required: false, hint: 'Full address, for the footer. Leave empty to hide.' }
           - { name: email, label: Contact email, widget: string, required: false, hint: 'Shown as an Email link in the footer. Leave empty to hide.' }
           - { name: showDetails, label: Show detail close-ups, widget: boolean, default: true, hint: 'Adds a row of automatically chosen close-ups under each work.' }

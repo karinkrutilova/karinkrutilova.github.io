@@ -2,40 +2,23 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import settings from '../content/settings.json';
-import { getWorks, imagePath, type Work } from '../lib/works';
-import { pickDetailCrops, cropStyle } from '../lib/detail-crops.mjs';
+import { getSiteImage } from '../lib/site-images';
+import { getWorks } from '../lib/works';
 const works = await getWorks();
 const base = import.meta.env.BASE_URL;
-const featured = works[0];
-const [detail] = featured && settings.showDetails ? await pickDetailCrops(imagePath(featured.data.image), { count: 1 }) : [];
-const caption = (work: Work) => [settings.showTitle && work.data.title, settings.showYear && work.data.year].filter(Boolean).join(', ');
+const portrait = getSiteImage(settings.portrait);
 ---
 <Base title={settings.heading}>
   <section class="hero">
-    <h1>{settings.name}</h1>
-    <div class="hero-body">
-      <div class="hero-text">
-        <div>
-          <p>{settings.intro}</p>
-        </div>
-        {detail && (
-          <figure class="hero-detail">
-            <div class="crop">
-              <Image src={featured.data.image} alt={`Close-up. ${featured.data.imageAlt}`} widths={[1200]} sizes="300px" format="webp" loading="eager" style={cropStyle(detail)} />
-            </div>
-            <figcaption>Detail</figcaption>
-          </figure>
-        )}
-      </div>
-      {featured && (
-        <figure class="hero-work">
-          <a href={`${base}works/${featured.id}/`}>
-            <Image src={featured.data.image} alt={featured.data.imageAlt} widths={[700, 1400]} sizes="(max-width: 950px) 90vw, 700px" format="webp" loading="eager" />
-          </a>
-          {caption(featured) && <figcaption>{caption(featured)}</figcaption>}
+    <div class="hero-identity">
+      <h1>{settings.name}</h1>
+      {portrait && (
+        <figure class="hero-portrait">
+          <Image src={portrait} alt={`Portrait of ${settings.name}`} widths={[160, 320]} sizes="160px" format="webp" loading="eager" />
         </figure>
       )}
     </div>
+    <div class="hero-bio"><p>{settings.intro}</p></div>
   </section>
   <section class="works" id="works">
     <h2 class="section-heading">{settings.heading}</h2>
@@ -43,9 +26,11 @@ const caption = (work: Work) => [settings.showTitle && work.data.title, settings
       {works.map((work) => (
         <li>
           <a class="work-link" href={`${base}works/${work.id}/`}>
-            <Image src={work.data.image} alt={work.data.imageAlt}
-              widths={[400, 800, 1200]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 400px"
-              format="webp" loading="lazy" />
+            <span class="work-frame">
+              <Image src={work.data.image} alt={work.data.imageAlt}
+                widths={[400, 800, 1200]} sizes="(max-width: 620px) 90vw, (max-width: 950px) 45vw, 400px"
+                format="webp" loading="lazy" />
+            </span>
             {(settings.showTitle || settings.showYear) && (
               <div class="work-caption">{settings.showTitle && <h2>{work.data.title}</h2>}{settings.showYear && <span>{work.data.year}</span>}</div>
             )}

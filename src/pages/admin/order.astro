@@ -36,7 +36,8 @@ const recordPath = (id: string | undefined) => id
       .artwork { position: relative; min-width: 0; border: 1px solid transparent; border-radius: 5px; background: #080808; cursor: grab; }
       .artwork.dragging { opacity: .45; }
       .artwork:focus-within { border-color: #777; }
-      .artwork img { display: block; width: 100%; height: auto; }
+      .preview-frame { display: block; aspect-ratio: 4 / 5; padding: 3px; overflow: hidden; background: #303033; }
+      .preview-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
       .position { position: absolute; top: 8px; left: 8px; z-index: 2; min-width: 34px; padding: 6px 8px; border-radius: 4px; color: #fff; background: rgba(0, 0, 0, .82); text-align: center; font-weight: 700; }
       .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px; }
       .title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #bbb; font-size: 14px; }
@@ -58,7 +59,7 @@ const recordPath = (id: string | undefined) => id
     <header>
       <div>
         <h1>Arrange gallery</h1>
-        <p>Drag artworks into the order they should appear on the site, or use the arrow buttons. The first artwork also becomes the large featured image at the top.</p>
+        <p>Drag artworks into the order they should appear in the gallery, or use the arrow buttons. Position 1 is the first artwork beneath the introduction.</p>
       </div>
       <div class="header-links">
         <a href={`${base}admin/`}>Editor</a>
@@ -75,14 +76,16 @@ const recordPath = (id: string | undefined) => id
         {works.map((work, index) => (
           <li class="artwork" draggable="true" data-record-path={recordPath(work.entry?.id)} data-title={work.data.title}>
             <span class="position" aria-hidden="true">{index + 1}</span>
-            <Image
-              src={work.data.image}
-              alt={work.data.imageAlt}
-              widths={[320, 640]}
-              sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 45vw, 420px"
-              format="webp"
-              loading="lazy"
-            />
+            <span class="preview-frame">
+              <Image
+                src={work.data.image}
+                alt={work.data.imageAlt}
+                widths={[320, 640]}
+                sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 45vw, 420px"
+                format="webp"
+                loading="lazy"
+              />
+            </span>
             <div class="meta">
               <span class="title">{work.data.title}</span>
               <span class="move">
