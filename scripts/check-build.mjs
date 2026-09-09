@@ -73,5 +73,7 @@ const globalStyles = await readFile('src/styles/global.css', 'utf8');
 assert.match(globalStyles, /\.gallery\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
 assert.match(globalStyles, /\.work-frame\s*\{[^}]*aspect-ratio:\s*4\s*\/\s*5[^}]*padding:\s*1px/s);
 assert.match(globalStyles, /\.work-frame img\s*\{[^}]*object-fit:\s*cover/s);
-assert.match(globalStyles, /\.hero\s*\{[^}]*padding:\s*44px 0 52px/s);
+assert.match(globalStyles, /\.hero\s*\{[^}]*padding:\s*24px 0 32px/s);
+assert.match(globalStyles, /\.works\s*\{[^}]*padding-top:\s*28px/s);
+assert.match(globalStyles, /\.gallery\s*\{[^}]*padding:\s*28px 0 0/s);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
