@@ -2,23 +2,39 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import settings from '../content/settings.json';
-import { getWorks } from '../lib/works';
+import { getWorks, imagePath, type Work } from '../lib/works';
+import { pickDetailCrops, cropStyle } from '../lib/detail-crops.mjs';
 const works = await getWorks();
 const base = import.meta.env.BASE_URL;
 const featured = works[0];
+const [detail] = featured && settings.showDetails ? await pickDetailCrops(imagePath(featured.data.image), { count: 1 }) : [];
+const caption = (work: Work) => [settings.showTitle && work.data.title, settings.showYear && work.data.year].filter(Boolean).join(', ');
 ---
 <Base title={settings.heading}>
   <section class="hero">
-    {featured && (
-      <figure class="hero-work">
-        <a href={`${base}works/${featured.id}/`} aria-label={`Open ${featured.data.title}`}>
-          <Image src={featured.data.image} alt={featured.data.imageAlt} widths={[104, 208]} sizes="104px" format="webp" loading="eager" />
-        </a>
-      </figure>
-    )}
-    <div class="hero-copy">
-      <h1>{settings.name}</h1>
-      <p>{settings.intro}</p>
+    <h1>{settings.name}</h1>
+    <div class="hero-body">
+      <div class="hero-text">
+        <div>
+          <p>{settings.intro}</p>
+        </div>
+        {detail && (
+          <figure class="hero-detail">
+            <div class="crop">
+              <Image src={featured.data.image} alt={`Close-up. ${featured.data.imageAlt}`} widths={[1200]} sizes="300px" format="webp" loading="eager" style={cropStyle(detail)} />
+            </div>
+            <figcaption>Detail</figcaption>
+          </figure>
+        )}
+      </div>
+      {featured && (
+        <figure class="hero-work">
+          <a href={`${base}works/${featured.id}/`}>
+            <Image src={featured.data.image} alt={featured.data.imageAlt} widths={[700, 1400]} sizes="(max-width: 950px) 90vw, 700px" format="webp" loading="eager" />
+          </a>
+          {caption(featured) && <figcaption>{caption(featured)}</figcaption>}
+        </figure>
+      )}
     </div>
   </section>
   <section class="works" id="works">

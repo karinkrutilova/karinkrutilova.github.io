@@ -1,7 +1,7 @@
 ---
-title: "Nunu2"
+title: "Karin Krútilová Nunu2"
 image: "/src/assets/works/karin-krutilova-nunu2.jpg"
-imageAlt: "Nunu2"
+imageAlt: "Karin Krútilová Nunu2"
 tags: []
 featured: false
 order: 26
