@@ -30,7 +30,14 @@ for (const page of pages) {
 const admin = await readFile('dist/admin/index.html', 'utf8');
 assert.match(admin, /@sveltia\/cms@0\.208\.2/);
 assert.match(admin, /href="\.\/config\.yml"/);
+assert.match(admin, /href="\.\/bulk-upload\/"/);
 await access('dist/admin/config.yml');
+await access('dist/admin/bulk-upload/index.html');
+const bulkUploader = await readFile('dist/admin/bulk-upload/upload.js', 'utf8');
+assert.match(bulkUploader, /\/git\/blobs/);
+assert.match(bulkUploader, /\/git\/trees/);
+assert.match(bulkUploader, /\/git\/commits/);
+assert.match(bulkUploader, /\/git\/refs\/heads/);
 const adminConfig = await readFile('dist/admin/config.yml', 'utf8');
 assert.match(adminConfig, /asset_collections:\s+[\s\S]*label: Artwork images/);
 assert.match(adminConfig, /media_libraries:\s+[\s\S]*slugify_filename: true/);

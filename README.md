@@ -10,12 +10,12 @@ A small Astro portfolio with Sveltia CMS and GitHub Pages. Static pages, content
 
 1. Create a [fine-grained GitHub personal access token](https://github.com/settings/personal-access-tokens/new). Select resource owner **karinkrutilova**, repository access **Only select repositories → portfolio**, and repository permission **Contents: Read and write**. Metadata read access is automatic. Choose an expiration date; renew the token when it expires.
 2. Open the editor and choose **Sign In with Token**. Paste the token there. Never put it in this repository or send it in chat. Sveltia keeps the token in that browser's local storage; sign out when using a shared computer.
-3. Open **Assets → Artwork images**, choose **Upload new assets**, and select or drag in as many images as you need. No title, year, description or other fields are required. The filename supplies a hidden fallback title, so use a short descriptive name such as `blue-portrait.jpg`.
+3. Choose **Bulk upload images** in the bottom-right corner of the editor, select as many images as you need, then choose **Upload selected images**. This reliable uploader sends file data independently and publishes the successful files together, avoiding the CMS's all-or-nothing batch limit. No title, year, description or other fields are required. The filename supplies a hidden fallback title, so use a short descriptive name such as `blue-portrait.jpg`.
 4. Use **Artwork details (optional)** only when you want to add a custom title, year, image description, ordering or other details to an uploaded image. Select the matching image in the record. You can skip this entirely when the gallery is configured to hide captions.
 5. Uploads and edits commit directly to `main` and trigger deployment. Wait for the Actions run to finish, then refresh the site.
 6. Open **Site text** to change the artist name, gallery introduction, or About/contact text. Add an email link in the About text when ready.
 
-Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The editor does not impose its own file-size limit on bulk uploads. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
+Export JPG, PNG or WebP around 2000 pixels on the long edge, ideally below 500 KB for a fast-loading site. The custom bulk uploader accepts files up to GitHub's 100 MB per-file limit and reports an exact error for each rejected file. The repository is public: uploaded files and their Git history are public too. Removing a work from the site does not erase previous commits.
 
 Featured works appear first. Within each group, lower sort-order numbers appear first; unnumbered works follow, newest year first. Each work has its own page. Tags are displayed on that page; there are no filters yet.
 
