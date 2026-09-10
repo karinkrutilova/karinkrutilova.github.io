@@ -7,18 +7,17 @@ import settings from '../content/settings.json';
   <section class="contact-page" aria-labelledby="contact-title">
     <header class="contact-intro">
       <h1 id="contact-title">Contact</h1>
-      <p>Have a project in mind? I’m available for illustration commissions, collaborations, and freelance projects.</p>
+      <p>For commissions, collaborations, or freelance enquiries, feel free to get in touch.</p>
     </header>
 
     <section class="contact-section" aria-labelledby="contact-details-title">
-      <p class="contact-label">Email</p>
       <div class="contact-copy">
-        <h2 id="contact-details-title">Tell me about your idea.</h2>
-        <p>A short description, intended use, timeline, and budget are helpful if you already know them.</p>
+        <h2 id="contact-details-title" class="visually-hidden">Send an email</h2>
         <a class="contact-email" href={`mailto:${settings.email}?subject=Project%20enquiry`}>
           <span>{settings.email}</span>
           <span class="contact-arrow" aria-hidden="true">↗</span>
         </a>
+        <p class="contact-note">It helps to include a short description of your idea, its intended use, timeline, and budget if known.</p>
       </div>
     </section>
   </section>
