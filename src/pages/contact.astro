@@ -4,19 +4,21 @@ import settings from '../content/settings.json';
 ---
 
 <Base title="Contact" description="Contact Karin Krútilová for illustration work and collaborations.">
-  <section class="projects-page" aria-labelledby="contact-title">
-    <header class="projects-intro">
+  <section class="contact-page" aria-labelledby="contact-title">
+    <header class="contact-intro">
       <h1 id="contact-title">Contact</h1>
-      <p>For commissions, collaborations, and project enquiries.</p>
+      <p>Have a project in mind? I’m available for illustration commissions, collaborations, and freelance projects.</p>
     </header>
 
-    <section class="projects-empty" aria-labelledby="contact-details-title">
-      <p class="projects-empty-label">Get in touch</p>
-      <div class="projects-empty-copy">
-        <h2 id="contact-details-title">Contact details</h2>
-        {settings.email && <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
-        {settings.instagram && <p><a href={settings.instagram}>Instagram</a></p>}
-        {!settings.email && !settings.instagram && <p>Contact details will be added soon.</p>}
+    <section class="contact-section" aria-labelledby="contact-details-title">
+      <p class="contact-label">Email</p>
+      <div class="contact-copy">
+        <h2 id="contact-details-title">Tell me about your idea.</h2>
+        <p>A short description, intended use, timeline, and budget are helpful if you already know them.</p>
+        <a class="contact-email" href={`mailto:${settings.email}?subject=Project%20enquiry`}>
+          <span>{settings.email}</span>
+          <span class="contact-arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
   </section>
