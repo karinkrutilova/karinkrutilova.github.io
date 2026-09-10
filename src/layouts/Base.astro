@@ -8,6 +8,7 @@ const projectsPath = `${base}projects/`;
 const contactPath = `${base}contact/`;
 const isProjects = Astro.url.pathname.startsWith(projectsPath);
 const isContact = Astro.url.pathname.startsWith(contactPath);
+const currentYear = new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en">
@@ -41,12 +42,23 @@ const isContact = Astro.url.pathname.startsWith(contactPath);
       </nav>
     </header>
     <main id="main" class="wrap"><slot /></main>
-    <footer class="site-footer wrap">
-      <span>{settings.name}</span>
-      <div>
-        {settings.instagram && <a href={settings.instagram}>Instagram</a>}
-        {settings.email && <a href={`mailto:${settings.email}`}>Email</a>}
-        <a class="admin" href={`${base}admin/`}>Edit portfolio</a>
+    <footer class="site-footer">
+      <div class="footer-main wrap">
+        <a class="footer-brand" href={base}>
+          <span class="footer-name">{settings.name}</span>
+          <span class="footer-role">Freelance illustration</span>
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href={base}>Artwork</a>
+          <a href={projectsPath}>Projects</a>
+          <a href={contactPath}>Contact</a>
+          {settings.instagram && <a href={settings.instagram}>Instagram</a>}
+          {settings.email && <a href={`mailto:${settings.email}`}>Email</a>}
+        </nav>
+      </div>
+      <div class="footer-bottom wrap">
+        <span>Based in Slovakia</span>
+        <span>© {currentYear} {settings.name}</span>
       </div>
     </footer>
   </body>
