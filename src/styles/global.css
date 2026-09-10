@@ -20,6 +20,7 @@ nav a:hover { color: #f2f2f2; text-decoration: none; }
 nav a[aria-current] { color: #f2f2f2; padding-bottom: 4px; border-bottom: 1px solid #f2f2f2; }
 
 .hero { display: grid; grid-template-columns: minmax(320px, 380px) minmax(0, 1fr); align-items: start; column-gap: clamp(36px, 6vw, 80px); padding: 8px 0 29px; }
+.hero-identity { align-self: center; }
 .hero-identity h1 { margin: 0; font-size: clamp(36px, 4vw, 52px); line-height: 1; font-weight: 300; letter-spacing: -.02em; white-space: nowrap; }
 .hero-bio { padding-top: 3px; }
 .hero-bio p { margin: 0; max-width: none; color: #c7c7c7; font-size: 18px; line-height: 1.5; }
