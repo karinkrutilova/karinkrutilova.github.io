@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Work = {
   id: string;
+  sourcePath: string;
   entry?: CollectionEntry<'works'>;
   data: {
     title: string;
@@ -60,6 +61,7 @@ export async function getWorks(): Promise<Work[]> {
 
     return {
       id: slugFromImagePath(imagePath),
+      sourcePath: imagePath,
       entry,
       data: {
         title,

@@ -4,9 +4,8 @@ import { getWorks } from '../../lib/works';
 
 const works = await getWorks();
 const base = import.meta.env.BASE_URL;
-const recordPath = (id: string | undefined) => id
-  ? `src/content/works/${id.replace(/\.md$/, '')}.md`
-  : '';
+const recordPath = (work: (typeof works)[number]) =>
+  `src/content/works/${(work.entry?.id ?? work.id).replace(/\.md$/, '')}.md`;
 ---
 <!doctype html>
 <html lang="en">
@@ -74,7 +73,14 @@ const recordPath = (id: string | undefined) => id
       </div>
       <ol class="gallery" id="artwork-order">
         {works.map((work, index) => (
-          <li class="artwork" draggable="true" data-record-path={recordPath(work.entry?.id)} data-title={work.data.title}>
+          <li
+            class="artwork"
+            draggable="true"
+            data-record-path={recordPath(work)}
+            data-image-path={work.sourcePath}
+            data-title={work.data.title}
+            data-has-record={work.entry ? 'true' : 'false'}
+          >
             <span class="position" aria-hidden="true">{index + 1}</span>
             <span class="preview-frame">
               <Image

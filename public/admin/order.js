@@ -1,4 +1,4 @@
-import { setFrontmatterOrder } from './order-utils.js';
+import { createArtworkRecord, setFrontmatterOrder } from './order-utils.js';
 
 const owner = 'karinkrutilova';
 const repo = 'karinkrutilova.github.io';
@@ -9,6 +9,7 @@ const resetButton = document.querySelector('#reset');
 const status = document.querySelector('#status');
 let draggedItem;
 let savedOrder = [...list.children].map((item) => item.dataset.recordPath);
+const missingRecordCount = [...list.children].filter((item) => item.dataset.hasRecord === 'false').length;
 
 const setStatus = (message) => { status.textContent = message; };
 
@@ -60,18 +61,22 @@ const decodeBase64 = (content) => {
   return new TextDecoder().decode(bytes);
 };
 
-const loadOrderedRecords = async (paths, entries) => Promise.all(paths.map(async (path, index) => {
-  if (!path) throw new Error('An artwork is missing its Artwork details record. Upload it again or create the missing record before arranging.');
-  const entry = entries.find((candidate) => candidate.path === path && candidate.type === 'blob');
-  if (!entry) throw new Error(`Artwork details record not found: ${path}`);
+const loadOrderedRecords = async (items, entries) => Promise.all(items.map(async (item, index) => {
+  const entry = entries.find((candidate) => candidate.path === item.recordPath && candidate.type === 'blob');
+  if (!entry) {
+    return {
+      path: item.recordPath,
+      content: createArtworkRecord({ title: item.title, imagePath: item.imagePath, order: index + 1 }),
+    };
+  }
   const blob = await github(`/repos/${owner}/${repo}/git/blobs/${entry.sha}`);
-  return { path, content: setFrontmatterOrder(decodeBase64(blob.content), index + 1) };
+  return { path: item.recordPath, content: setFrontmatterOrder(decodeBase64(blob.content), index + 1) };
 }));
 
-const publishOrder = async (paths) => {
+const publishOrder = async (items) => {
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const head = await getHead();
-    const records = await loadOrderedRecords(paths, head.entries);
+    const records = await loadOrderedRecords(items, head.entries);
     const tree = await github(`/repos/${owner}/${repo}/git/trees`, {
       method: 'POST',
       body: JSON.stringify({
@@ -82,7 +87,7 @@ const publishOrder = async (paths) => {
     const commit = await github(`/repos/${owner}/${repo}/git/commits`, {
       method: 'POST',
       body: JSON.stringify({
-        message: `Reorder ${paths.length} portfolio artworks`,
+        message: `Reorder ${items.length} portfolio artworks`,
         tree: tree.sha,
         parents: [head.commitSha],
       }),
@@ -101,6 +106,11 @@ const publishOrder = async (paths) => {
 };
 
 const currentOrder = () => [...list.children].map((item) => item.dataset.recordPath);
+const currentItems = () => [...list.children].map((item) => ({
+  recordPath: item.dataset.recordPath,
+  imagePath: item.dataset.imagePath,
+  title: item.dataset.title,
+}));
 
 const refresh = () => {
   const items = [...list.children];
@@ -164,14 +174,15 @@ resetButton.addEventListener('click', () => {
 });
 
 saveButton.addEventListener('click', async () => {
-  const paths = currentOrder();
+  const items = currentItems();
   saveButton.disabled = true;
   resetButton.disabled = true;
-  setStatus(`Saving the order of ${paths.length} artworks…`);
+  setStatus(`Saving the order of ${items.length} artworks…`);
 
   try {
-    const commitSha = await publishOrder(paths);
-    savedOrder = paths;
+    const commitSha = await publishOrder(items);
+    savedOrder = items.map(({ recordPath }) => recordPath);
+    [...list.children].forEach((item) => { item.dataset.hasRecord = 'true'; });
     refresh();
     setStatus(`Arrangement saved in commit ${commitSha.slice(0, 7)}. The portfolio is rebuilding and usually updates within two minutes.`);
   } catch (error) {
@@ -180,4 +191,8 @@ saveButton.addEventListener('click', async () => {
   }
 });
 
+if (missingRecordCount) {
+  const subject = missingRecordCount === 1 ? 'Its Artwork details record' : 'Their Artwork details records';
+  setStatus(`${missingRecordCount} new upload${missingRecordCount === 1 ? '' : 's'} found. ${subject} will be created when you save the arrangement.`);
+}
 refresh();

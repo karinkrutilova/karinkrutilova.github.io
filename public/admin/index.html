@@ -32,9 +32,14 @@
   <body>
     <noscript>Enable JavaScript to use the portfolio editor.</noscript>
     <nav class="admin-tools" aria-label="Portfolio tools">
-      <a class="admin-tool-link" href="./order/">Arrange gallery</a>
-      <a class="admin-tool-link" href="./bulk-upload/">Bulk upload images</a>
+      <a class="admin-tool-link" href="./order/" data-fresh-link>Arrange gallery</a>
+      <a class="admin-tool-link" href="./bulk-upload/" data-fresh-link>Bulk upload images</a>
     </nav>
+    <script>
+      document.querySelectorAll('[data-fresh-link]').forEach((link) => {
+        link.href = `${link.getAttribute('href')}?refresh=${Date.now()}`;
+      });
+    </script>
     <script src="https://unpkg.com/@sveltia/cms@0.208.2/dist/sveltia-cms.js"></script>
   </body>
 </html>

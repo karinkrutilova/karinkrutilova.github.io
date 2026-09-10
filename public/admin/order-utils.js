@@ -9,3 +9,15 @@ export const setFrontmatterOrder = (content, order) => {
 
   return `---${newline}${frontmatter}${newline}---${match[4]}${content.slice(match[0].length)}`;
 };
+
+export const createArtworkRecord = ({ title, imagePath, order }) => [
+  '---',
+  `title: ${JSON.stringify(title)}`,
+  `image: ${JSON.stringify(imagePath)}`,
+  `imageAlt: ${JSON.stringify(title)}`,
+  'tags: []',
+  'featured: false',
+  `order: ${order}`,
+  '---',
+  '',
+].join('\n');

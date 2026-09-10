@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
-import { setFrontmatterOrder } from '../public/admin/order-utils.js';
+import { createArtworkRecord, setFrontmatterOrder } from '../public/admin/order-utils.js';
 
 const withBody = `---
 title: "Example"
@@ -21,6 +21,11 @@ assert.equal(
   '---\r\ntitle: "Example"\r\nimage: "/src/assets/works/example.jpg"\r\norder: 7\r\n---\r\n\r\nDescription.\r\n',
 );
 assert.throws(() => setFrontmatterOrder('No frontmatter', 1), /no valid frontmatter/);
+
+assert.equal(
+  createArtworkRecord({ title: 'New "Work"', imagePath: '/src/assets/works/new-work.jpg', order: 4 }),
+  '---\ntitle: "New \\"Work\\""\nimage: "/src/assets/works/new-work.jpg"\nimageAlt: "New \\"Work\\""\ntags: []\nfeatured: false\norder: 4\n---\n',
+);
 
 const images = (await readdir('src/assets/works')).filter((name) => /\.(avif|gif|jpe?g|png|webp)$/i.test(name));
 let matchedRecords = 0;
