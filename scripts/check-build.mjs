@@ -124,7 +124,7 @@ assert.match(globalStyles, /\.works > \.section-heading\s*\{[^}]*border-bottom:\
 assert.match(globalStyles, /\.works > \.section-heading\s*\{[^}]*font-weight:\s*400/s);
 assert.match(globalStyles, /\.projects-page\s*\{[^}]*padding-top:\s*48px/s);
 assert.match(globalStyles, /\.gallery\s*\{[^}]*padding:\s*28px 0 0/s);
-assert.match(globalStyles, /\.works::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background:\s*#1c1c1c/s);
+assert.match(globalStyles, /\.works::before\s*\{[^}]*inset:\s*0 calc\(50% - 50vw\)[^}]*background:\s*#111/s);
 assert.match(globalStyles, /\.works::after\s*\{[^}]*opacity:\s*\.5[^}]*background-image:\s*url\('\/gallery-smoke\.webp'\)/s);
 assert.doesNotMatch(globalStyles, /radial-gradient|filter:\s*blur/);
 console.log(`Checked ${pages.length} pages, local links, responsive images, and admin entry.`);
