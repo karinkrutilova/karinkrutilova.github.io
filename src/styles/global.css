@@ -10,7 +10,7 @@ figcaption { font-size: 14px; color: #8c8c8c; margin-top: 10px; }
 .wrap { width: min(1312px, calc(100% - 128px)); margin-inline: auto; }
 .rule { border: 0; border-top: 1px solid rgba(255, 255, 255, .3); margin: 0; }
 
-.site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 36px 0 16px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
+.site-header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 16px 0; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .3); }
 .wordmark { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: .02em; }
 .wordmark-icon { width: 28px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
 main { flex: 1; padding-top: 6px; }
@@ -111,7 +111,7 @@ dd { margin: 0; }
   .detail-crops { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (max-width: 620px) {
-  .site-header { flex-wrap: wrap; align-items: center; row-gap: 0; padding: 18px 0 2px; }
+  .site-header { flex-wrap: wrap; align-items: center; row-gap: 0; padding: 8px 0 2px; }
   nav { gap: 22px; }
   nav a { padding: 12px 0; }
   nav a[aria-current] { padding-bottom: 12px; }
