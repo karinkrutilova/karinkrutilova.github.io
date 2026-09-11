@@ -82,7 +82,7 @@ assert(home.includes(`>${settings.name}<`), 'Home page does not use the configur
 assert(home.includes(`>${settings.heading}<`), 'Home page does not use the configured gallery heading');
 assert.match(home, /K\.K\. — freelance illustration<\/span>/);
 assert.match(home, /<svg class="wordmark-icon"[^>]*aria-hidden="true"/);
-assert.match(home, /href="\/projects\/"/);
+assert.doesNotMatch(home, /href="\/projects\/"/);
 assert.doesNotMatch(home, /Karin Krutilová/, 'The known surname misspelling has returned');
 assert.doesNotMatch(home, />About</);
 assert.doesNotMatch(home, /See the works/i);
@@ -99,7 +99,7 @@ const projects = await readFile('dist/projects/index.html', 'utf8');
 assert.match(projects, /<h1[^>]*>Projects<\/h1>/);
 assert.match(projects, /Projects will be added soon\./);
 assert.match(projects, /K\.K\. — freelance illustration<\/span>/);
-assert.match(projects, /href="\/projects\/" aria-current="page"/);
+assert.doesNotMatch(projects, /href="\/projects\/"/);
 const contact = await readFile('dist/contact/index.html', 'utf8');
 assert.match(contact, /<h1[^>]*>Contact<\/h1>/);
 assert.match(contact, /href="\/contact\/" aria-current="page"/);

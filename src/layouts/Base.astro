@@ -37,7 +37,6 @@ const currentYear = new Date().getFullYear();
       </a>
       <nav aria-label="Main navigation">
         <a href={base} aria-current={!isProjects && !isContact ? 'page' : undefined}>Artwork</a>
-        <a href={projectsPath} aria-current={isProjects ? 'page' : undefined}>Projects</a>
         <a href={contactPath} aria-current={isContact ? 'page' : undefined}>Contact</a>
       </nav>
     </header>
@@ -50,7 +49,6 @@ const currentYear = new Date().getFullYear();
         </a>
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href={base}>Artwork</a>
-          <a href={projectsPath}>Projects</a>
           <a href={contactPath}>Contact</a>
           {settings.instagram && <a href={settings.instagram}>Instagram</a>}
         </nav>
